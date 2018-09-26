@@ -4,6 +4,8 @@ class Room < ActiveRecord::Base
 
   has_many :games
 
+  validates :name, { presence: true }
+
   before_create :ensure_game_exists
 
   def game
