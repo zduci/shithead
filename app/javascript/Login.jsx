@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import api from 'utils/api'
 
 const LoginForm = styled.form`
   display: flex;
@@ -14,7 +15,7 @@ const Input = styled.input`
   height: 18;
   padding: 6px 12px;
   font-size: 14px;
-  line-height: 1.42857143;
+  line-height: 1.4;
   margin: 10px 0 10px 0;
 `
 
@@ -39,29 +40,49 @@ const PlayButton = styled.button`
   }
 `
 
+const Error = styled.div`
+  font-size: 14px;
+  color: red;
+  margin-bottom: 10px;
+`
+
 export default class Login extends Component {
   state = {
-    name: '',
+    player: '',
     room: ''
   }
 
   isButtonDisabled () {
-    return !(this.state.name.length && this.state.room.length)
+    return !(this.state.player.length && this.state.room.length)
   }
 
-  setName = event => this.setState({ name: event.target.value })
+  setPlayer = event => this.setState({ player: event.target.value })
   setRoom = event => this.setState({ room: event.target.value })
+
+  joinRoom = event => {
+    event.preventDefault();
+
+    api.joinRoom(this.state.room, this.state.player).then(response => {
+      if (response.data.success === true) {
+      } else {
+        this.setState({
+          error: response.data.messages
+        })
+      }
+    })
+  }
 
   render () {
     return (
-      <LoginForm>
+      <LoginForm onSubmit={this.joinRoom} >
         <h1>Shithead</h1>
-        <label htmlFor='name'>
-          Name:
+        <Error>{this.state.error}</Error>
+        <label htmlFor='player'>
+          Player:
         </label>
-        <Input name='name'
+        <Input name='player'
                type='text'
-               onChange={this.setName} />
+               onChange={this.setPlayer} />
         <label htmlFor='room'>
           Room:
         </label>
