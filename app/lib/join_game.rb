@@ -16,6 +16,7 @@ class JoinGame
   end
 
   def add(player_name)
+    game.players.create(name: player_name)
   end
 
   private

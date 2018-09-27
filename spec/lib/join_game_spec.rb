@@ -28,4 +28,14 @@ describe JoinGame do
         JoinGame::Errors::GAME_IN_PROGRESS)
     end
   end
+
+  describe '#add' do
+    let(:room) { create(:room, :joining).reload }
+    let(:player_name) { 'Rick' }
+
+    it 'adds a new player to a game' do
+      JoinGame.in(room.name).add(player_name)
+      expect(room.game.players.last.name).to eq(player_name)
+    end
+  end
 end
