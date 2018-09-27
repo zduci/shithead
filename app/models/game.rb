@@ -1,8 +1,8 @@
 class Game < ActiveRecord::Base
   module Status
-    JOINING = :joining
-    PLAYING = :playing
-    ENDED = :ended
+    JOINING = 'joining'.freeze
+    PLAYING = 'playing'.freeze
+    ENDED = 'ended'.freeze
 
     ALL = [JOINING, PLAYING, ENDED]
   end

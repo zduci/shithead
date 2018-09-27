@@ -4,12 +4,11 @@ class JoinGame
   end
 
   def self.in(room_name)
-    game = find_or_create_room(room_name).game
-    unless game.playing?
-      new(game)
-    else
-      raise Errors::GAME_IN_PROGRESS
-    end
+    room = find_or_create_room(room_name)
+    game = room.game
+    raise Errors::GAME_IN_PROGRESS if game.playing?
+    game = room.games.create! if game.ended?
+    new(game)
   end
 
   def initialize(game)
@@ -22,9 +21,8 @@ class JoinGame
   private
 
   def self.find_or_create_room(name)
-    Room.friendly.find(name)
-  rescue
-    Room.create!(name: name)
+    Room.find_by(name: name) ||
+      Room.create!(name: name)
   end
 
   attr_reader :game
