@@ -19,5 +19,11 @@ FactoryBot.define do
         create(:game, :ended, room: room)
       end
     end
+
+    trait :full do
+      after(:create) do |room|
+        create(:game, :full, room: room)
+      end
+    end
   end
 end

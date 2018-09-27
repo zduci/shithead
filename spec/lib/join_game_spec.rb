@@ -31,6 +31,7 @@ describe JoinGame do
 
   describe '#add' do
     let(:room) { create(:room, :joining).reload }
+    let(:room_full) { create(:room, :full).reload }
     let(:player_name) { 'Rick' }
 
     it 'adds a new player to a game' do
@@ -42,6 +43,11 @@ describe JoinGame do
       room.game.players.create!(name: player_name)
       expect { JoinGame.in(room.name).add(player_name) }.to raise_error(
         ActiveRecord::RecordInvalid)
+    end
+
+    it 'raises an error if game is full' do
+      expect { JoinGame.in(room_full.name).add(player_name) }.to raise_error(
+        JoinGame::Errors::ROOM_FULL)
     end
   end
 end

@@ -1,6 +1,7 @@
 class JoinGame
   module Errors
     GAME_IN_PROGRESS = StandardError.new('Game in progress, try different room')
+    ROOM_FULL = StandardError.new('This room is full, try different room')
   end
 
   def self.in(room_name)
@@ -16,6 +17,7 @@ class JoinGame
   end
 
   def add(player_name)
+    raise Errors::ROOM_FULL if game.players.count == Game::MAX_PLAYERS
     game.players.create!(name: player_name)
   end
 

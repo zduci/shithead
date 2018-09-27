@@ -13,5 +13,11 @@ FactoryBot.define do
     trait :ended do
       status { Game::Status::ENDED }
     end
+
+    trait :full do
+      after(:create) do |game|
+        create_list(:player, Game::MAX_PLAYERS, game: game)
+      end
+    end
   end
 end

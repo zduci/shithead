@@ -7,6 +7,8 @@ class Game < ActiveRecord::Base
     ALL = [JOINING, PLAYING, ENDED]
   end
 
+  MAX_PLAYERS = 2
+
   enum status: Status::ALL
 
   belongs_to :room
