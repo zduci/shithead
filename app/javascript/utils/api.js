@@ -6,5 +6,9 @@ export default {
       'login.json',
       { room: room,
         player: player })
+  },
+
+  getRoom: slug => {
+    return axios.get(`/rooms/${slug}.json`)
   }
 }
