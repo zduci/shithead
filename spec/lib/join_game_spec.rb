@@ -37,5 +37,11 @@ describe JoinGame do
       JoinGame.in(room.name).add(player_name)
       expect(room.game.players.last.name).to eq(player_name)
     end
+
+    it 'raises an error if player name is taken' do
+      room.game.players.create!(name: player_name)
+      expect { JoinGame.in(room.name).add(player_name) }.to raise_error(
+        ActiveRecord::RecordInvalid)
+    end
   end
 end
