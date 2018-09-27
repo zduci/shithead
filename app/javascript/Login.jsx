@@ -63,7 +63,12 @@ export default class Login extends Component {
     event.preventDefault();
 
     api.joinRoom(this.state.room, this.state.player).then(response => {
+      const { success, data, messages } = response.data
+
       if (response.data.success === true) {
+        const { slug } = data.room
+
+        this.props.history.push(`/rooms/${slug}`)
       } else {
         this.setState({
           error: response.data.messages

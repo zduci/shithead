@@ -1,5 +1,7 @@
 import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Login from 'Login'
+import Room from 'Room'
 import styled from 'styled-components'
 
 const AppWrapper = styled.div`
@@ -11,8 +13,10 @@ const AppWrapper = styled.div`
   background-size: cover;
 `
 
-export default App = props => (
-  <AppWrapper>
-    <Login/>
-  </AppWrapper>
-)
+export default App = props =>
+  <Router>
+    <AppWrapper>
+      <Route path='/' exact component={Login} />
+      <Route path='/rooms/:slug' exact component={Room} />
+    </AppWrapper>
+  </Router>

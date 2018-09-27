@@ -2,10 +2,10 @@ class LoginController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
 
   def create
-    JoinGame.in(room_name).add(player_name)
+    room = JoinGame.in(room_name).add(player_name)
     render json: {
       success: true,
-      data: {}
+      data: { room: room }
     }
   rescue StandardError => e
     render json: {
