@@ -60,7 +60,7 @@ export default class Login extends Component {
   setRoom = event => this.setState({ room: event.target.value })
 
   joinRoom = event => {
-    event.preventDefault();
+    event.preventDefault()
 
     api.joinRoom(this.state.room, this.state.player).then(response => {
       const { success, data, messages } = response.data
