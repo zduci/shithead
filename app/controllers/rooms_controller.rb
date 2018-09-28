@@ -1,12 +1,15 @@
 class RoomsController < ApplicationController
   def show
     room = Room.friendly.find(room_params[:slug])
+    player_id = cookies.encrypted[:player_id]
+    player = room.game.players.find(player_id)
+    opponents = room.game.players.where.not(id: player_id)
 
     render json: {
       success: true,
       data: { room: room,
-              players: room.game.players,
-              player_id: cookies.encrypted[:player_id] } }
+              player: player,
+              opponents: opponents } }
   end
 
   private

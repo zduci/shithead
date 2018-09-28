@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import api from 'utils/api'
 
@@ -30,38 +30,45 @@ const PlayerName = styled.li`
 
 export default class Room extends Component {
   state = {
-    room: {},
-    players: []
+    room: null,
+    player: null,
+    opponents: []
   }
 
   componentDidMount () {
     const { slug } = this.props.match.params
     api.getRoom(slug).then(response => {
-      const { room, players, player_id } = response.data.data
+      const { room, player, opponents } = response.data.data
 
       this.setState({
         room: room,
-        players: players,
-        player_id: player_id
+        player: player,
+        opponents: opponents
       })
     })
   }
 
   render () {
-    const { room, players, player_id } = this.state
+    const { room, player, opponents } = this.state
 
     return (
-      <RoomWrapper>
-        <h2>{room.name}</h2>
-        <PlayerNames>
-          { players.map(player =>
-              <PlayerName key={player.id} isPlayer={player.id == player_id} >
+      <Fragment>
+        { room && <RoomWrapper>
+            <h2>{room.name}</h2>
+            <PlayerNames>
+              <PlayerName key={player.id} isPlayer >
                 {player.name}
               </PlayerName>
-            )
-          }
-        </PlayerNames>
-      </RoomWrapper>
+              { opponents.map(opponent =>
+                  <PlayerName key={opponent.id} >
+                    {opponent.name}
+                  </PlayerName>
+                )
+              }
+            </PlayerNames>
+          </RoomWrapper>
+        }
+      </Fragment>
     )
   }
 }
