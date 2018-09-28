@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   post 'login', to: 'login#create'
 
-  get 'rooms/:slug', to: 'rooms#show'
+  get 'rooms/:slug.json', to: 'rooms#show', as: :room_json
+  get 'rooms/:slug', to: 'app#index', as: :room
 end

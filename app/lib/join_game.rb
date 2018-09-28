@@ -18,8 +18,8 @@ class JoinGame
 
   def add(player_name)
     raise Errors::ROOM_FULL if game.players.count == Game::MAX_PLAYERS
-    game.players.create!(name: player_name)
-    game.room
+    player = game.players.create!(name: player_name)
+    [game.room, player]
   end
 
   private
