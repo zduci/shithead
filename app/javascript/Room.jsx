@@ -25,6 +25,7 @@ const PlayerName = styled.li`
   font-size: 14px;
   line-height: 1.4;
   margin: 10px 0 10px 0;
+  color: ${props => props.isPlayer && 'red'};
 `
 
 export default class Room extends Component {
@@ -36,21 +37,25 @@ export default class Room extends Component {
   componentDidMount () {
     const { slug } = this.props.match.params
     api.getRoom(slug).then(response => {
-      const { room, players } = response.data.data
+      const { room, players, player_id } = response.data.data
 
-      this.setState({ room: room, players: players })
+      this.setState({
+        room: room,
+        players: players,
+        player_id: player_id
+      })
     })
   }
 
   render () {
-    const { room, players } = this.state
+    const { room, players, player_id } = this.state
 
     return (
       <RoomWrapper>
         <h2>{room.name}</h2>
         <PlayerNames>
           { players.map(player =>
-              <PlayerName key={player.name}>
+              <PlayerName key={player.id} isPlayer={player.id == player_id} >
                 {player.name}
               </PlayerName>
             )
