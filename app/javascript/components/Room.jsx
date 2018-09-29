@@ -17,7 +17,7 @@ const PlayerNames = styled.ul`
   align-items: center;
   width: 100%;
   padding: 8px;
-  margin-bottom: 200px;
+  margin-bottom: 40px;
 `
 
 const PlayerName = styled.li`
@@ -27,6 +27,28 @@ const PlayerName = styled.li`
   line-height: 1.4;
   margin: 10px 0 10px 0;
   color: ${props => props.isReady && 'green'};
+`
+
+const LeaveButton = styled.div`
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: black;
+  width: 60px;
+`
+
+const ReadyButton = styled(LeaveButton)`
+  margin-bottom: 8px;
 `
 
 class Room extends Component {
@@ -55,6 +77,8 @@ class Room extends Component {
                 )
               }
             </PlayerNames>
+            <ReadyButton>Ready</ReadyButton>
+            <LeaveButton>Leave</LeaveButton>
           </RoomWrapper>
         }
       </Fragment>
