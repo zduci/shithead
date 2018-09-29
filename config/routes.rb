@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server, at: '/cable'
+
   root to: 'app#index'
 
   post 'login', to: 'login#create'
