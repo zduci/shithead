@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
-import api from 'utils/api'
+import { connect } from 'react-redux'
+import { loadRoom } from '../actions/shared'
 
 const RoomWrapper = styled.div`
   display: flex;
@@ -28,28 +29,16 @@ const PlayerName = styled.li`
   color: ${props => props.isPlayer && 'red'};
 `
 
-export default class Room extends Component {
-  state = {
-    room: null,
-    player: null,
-    opponents: []
-  }
-
+class Room extends Component {
   componentDidMount () {
     const { slug } = this.props.match.params
-    api.getRoom(slug).then(response => {
-      const { room, player, opponents } = response.data.data
+    const { dispatch } = this.props
 
-      this.setState({
-        room: room,
-        player: player,
-        opponents: opponents
-      })
-    })
+    dispatch(loadRoom(slug))
   }
 
   render () {
-    const { room, player, opponents } = this.state
+    const { room, player, opponents } = this.props
 
     return (
       <Fragment>
@@ -72,3 +61,7 @@ export default class Room extends Component {
     )
   }
 }
+
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps)(Room)

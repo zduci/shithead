@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Login from 'Login'
-import Room from 'Room'
+import Login from './Login'
+import Room from './Room'
 import styled from 'styled-components'
 
 const AppWrapper = styled.div`
