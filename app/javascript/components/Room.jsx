@@ -57,14 +57,6 @@ class Room extends Component {
     const { slug } = this.props.match.params
     const { dispatch } = this.props
 
-    App.rooms = App.cable.subscriptions.create({
-      channel: 'RoomsChannel',
-      slug: `${slug}` }, {
-      received: function(data) {
-        dispatch(data.action)
-      }
-    })
-
     dispatch(loadRoom(slug))
   }
 
