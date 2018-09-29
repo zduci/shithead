@@ -7,7 +7,7 @@ class Game < ActiveRecord::Base
     ALL = [JOINING, PLAYING, ENDED]
   end
 
-  MAX_PLAYERS = 2
+  MAX_PLAYERS = 4
 
   enum status: Status::ALL
 

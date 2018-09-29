@@ -3,8 +3,12 @@ class LoginController < ApplicationController
 
   def create
     room, player = JoinGame.in(room_name).add(player_name)
+
     cookies.encrypted[:player_id] = player.id
     cookies.encrypted[:room_slug] = room.slug
+
+    broadcast_player(room, player)
+
     render json: {
       success: true,
       data: { room: room }
@@ -28,5 +32,15 @@ class LoginController < ApplicationController
 
   def login_params
     params.require(:login).permit(:player, :room)
+  end
+
+  def broadcast_player(room, player)
+    ActionCable.server.broadcast(
+      "rooms:#{room.slug}",
+      action: {
+        type: 'ADD_OPPONENT',
+        opponent: player
+      }
+    )
   end
 end

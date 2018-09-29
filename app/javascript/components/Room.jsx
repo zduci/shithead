@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { loadRoom } from '../actions/shared'
+import { receiveOpponents } from '../actions/opponents'
 
 const RoomWrapper = styled.div`
   display: flex;
@@ -55,6 +56,14 @@ class Room extends Component {
   componentDidMount () {
     const { slug } = this.props.match.params
     const { dispatch } = this.props
+
+    App.rooms = App.cable.subscriptions.create({
+      channel: 'RoomsChannel',
+      slug: `${slug}` }, {
+      received: function(data) {
+        dispatch(data.action)
+      }
+    })
 
     dispatch(loadRoom(slug))
   }
