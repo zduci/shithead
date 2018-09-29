@@ -34,10 +34,8 @@ const PlayButton = styled.button`
   border: 1px solid transparent;
   border-radius: 4px;
   border-color: black;
-  &.disabled {
-    color: grey;
-    border-color: grey;
-  }
+  color: ${props => props.disabled && 'grey'};
+  border-color: ${props => props.disabled && 'grey'};
 `
 
 const Error = styled.div`
@@ -94,8 +92,7 @@ export default class Login extends Component {
         <Input name='room'
                type='text'
                onChange={this.setRoom} />
-        <PlayButton disabled={!this.isButtonDisabled}
-                    className={this.isButtonDisabled() && 'disabled' } >
+        <PlayButton disabled={this.isButtonDisabled()} >
           Play
         </PlayButton>
       </LoginForm>
