@@ -26,7 +26,7 @@ const PlayerName = styled.li`
   font-size: 14px;
   line-height: 1.4;
   margin: 10px 0 10px 0;
-  color: ${props => props.isPlayer && 'red'};
+  color: ${props => props.isReady && 'green'};
 `
 
 class Room extends Component {
@@ -45,12 +45,12 @@ class Room extends Component {
         { room && <RoomWrapper>
             <h2>{room.name}</h2>
             <PlayerNames>
-              <PlayerName key={player.id} isPlayer >
-                {player.name}
+              <PlayerName key={player.id} isReady={player.is_ready} >
+                { player.name }
               </PlayerName>
               { opponents.map(opponent =>
-                  <PlayerName key={opponent.id} >
-                    {opponent.name}
+                  <PlayerName key={opponent.id} isReady={opponent.is_ready} >
+                    { opponent.name }
                   </PlayerName>
                 )
               }
