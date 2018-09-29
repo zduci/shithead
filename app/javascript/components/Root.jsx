@@ -13,10 +13,12 @@ const AppWrapper = styled.div`
   background-size: cover;
 `
 
-export default App = props =>
+const Root = props =>
   <Router>
     <AppWrapper>
       <Route path='/' exact component={Login} />
       <Route path='/rooms/:slug' exact component={Room} />
     </AppWrapper>
   </Router>
+
+export default Root
