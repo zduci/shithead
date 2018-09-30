@@ -5,7 +5,6 @@ class LoginController < ApplicationController
     room, player = JoinGame.in(room_name).add(player_name)
 
     cookies.encrypted[:player_id] = player.id
-    cookies.encrypted[:room_slug] = room.slug
 
     broadcast_player(room, player)
 
