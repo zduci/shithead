@@ -31,7 +31,7 @@ const PlayerName = styled.li`
   color: ${props => props.isReady && 'green'};
 `
 
-const LeaveButton = styled.div`
+const LeaveButton = styled.button`
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -45,8 +45,9 @@ const LeaveButton = styled.div`
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  border-color: black;
-  width: 60px;
+  color: ${props => props.disabled ? 'green' : 'black'};
+  border-color: ${props => props.disabled ? 'green' : 'black'};
+  width: 70px;
 `
 
 const ReadyButton = styled(LeaveButton)`
@@ -82,17 +83,17 @@ class Room extends Component {
         { room && <RoomWrapper>
             <h2>{room.name}</h2>
             <PlayerNames>
-              <PlayerName key={player.id} isReady={player.is_ready} >
+              <PlayerName key={player.id} isReady={player.is_ready}>
                 { player.name }
               </PlayerName>
               { opponents.map(opponent =>
-                  <PlayerName key={opponent.id} isReady={opponent.is_ready} >
+                  <PlayerName key={opponent.id} isReady={opponent.is_ready}>
                     { opponent.name }
                   </PlayerName>
                 )
               }
             </PlayerNames>
-            <ReadyButton onClick={handlePlayerIsReady}>Ready</ReadyButton>
+            <ReadyButton onClick={handlePlayerIsReady} disabled={player.is_ready}>Ready</ReadyButton>
             <LeaveButton onClick={handleLeaveRoom}>Leave</LeaveButton>
           </RoomWrapper>
         }
