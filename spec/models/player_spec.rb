@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Player do
   context 'associations' do
     it { is_expected.to belong_to(:game) }
+    it { is_expected.to have_one(:room).through(:game) }
   end
 
   context 'validations' do
