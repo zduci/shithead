@@ -1,8 +1,8 @@
-import { RECEIVE_PLAYER } from '../actions/player'
+import { RECEIVE_ROOM } from '../actions/shared'
 
 export function player (state = {}, action) {
   switch (action.type) {
-    case RECEIVE_PLAYER:
+    case RECEIVE_ROOM:
       return action.player
     default:
       return state

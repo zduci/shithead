@@ -1,10 +1,17 @@
 import api from '../utils/api'
-import { receiveRoom } from './room'
-import { receivePlayer } from './player'
-import { receiveOpponents } from './opponents'
 import roomChannel from '../utils/roomChannel.js'
 
 export const LOAD_ROOM = 'LOAD_ROOM'
+export const RECEIVE_ROOM = 'RECEIVE_ROOM'
+
+export function receiveRoom (room, player, opponents) {
+  return {
+   type: RECEIVE_ROOM,
+   room: room,
+   player: player,
+   opponents: opponents
+  }
+}
 
 export function loadRoom (slug) {
   return (dispatch) => {
@@ -14,9 +21,7 @@ export function loadRoom (slug) {
 
         console.log('room is received', room)
 
-        dispatch(receiveRoom(room))
-        dispatch(receivePlayer(player))
-        dispatch(receiveOpponents(opponents))
+        dispatch(receiveRoom(room, player, opponents))
 
         roomChannel.subscribe(room.slug, player.id, dispatch)
       })

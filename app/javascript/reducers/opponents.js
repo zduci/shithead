@@ -1,9 +1,9 @@
-import { RECEIVE_OPPONENTS, ADD_OPPONENT,
-         REMOVE_OPPONENT } from '../actions/opponents'
+import { RECEIVE_ROOM } from '../actions/shared'
+import { ADD_OPPONENT, REMOVE_OPPONENT } from '../actions/opponents'
 
 export function opponents (state = [], action) {
   switch (action.type) {
-    case RECEIVE_OPPONENTS:
+    case RECEIVE_ROOM:
       return action.opponents
     case ADD_OPPONENT:
       return [ ...state, action.opponent ]

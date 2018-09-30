@@ -1,4 +1,4 @@
-import { RECEIVE_ROOM } from '../actions/room'
+import { RECEIVE_ROOM } from '../actions/shared'
 
 export function room (state = null, action) {
   switch (action.type) {
