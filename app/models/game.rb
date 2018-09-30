@@ -12,5 +12,5 @@ class Game < ActiveRecord::Base
   enum status: Status::ALL
 
   belongs_to :room
-  has_many :players
+  has_many :players, dependent: :destroy
 end

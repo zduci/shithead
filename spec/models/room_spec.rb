@@ -6,7 +6,7 @@ describe Room do
   end
 
   context 'associations' do
-    it { is_expected.to have_many(:games) }
+    it { is_expected.to have_many(:games).dependent(:destroy) }
   end
 
   it 'creates a new game on create' do

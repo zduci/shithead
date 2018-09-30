@@ -2,7 +2,7 @@ class Room < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  has_many :games
+  has_many :games, dependent: :destroy
 
   validates :name, { presence: true }
 
