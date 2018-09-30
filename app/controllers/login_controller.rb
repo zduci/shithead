@@ -54,7 +54,7 @@ class LoginController < ApplicationController
   def broadcast_player(room, player)
     ActionCable.server.broadcast(
       "rooms:#{room.slug}",
-      action: {
+      dispatchAction: {
         type: 'ADD_OPPONENT',
         opponent: player
       }
