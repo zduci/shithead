@@ -22,3 +22,16 @@ export function loadRoom (slug) {
       })
   }
 }
+
+export function leaveRoom (history) {
+  return (dispatch) => {
+    return api.leaveRoom()
+      .then((response) => {
+        history.push('/')
+
+        dispatch(receiveRoom(null))
+        dispatch(receivePlayer(null))
+        dispatch(receiveOpponents([]))
+      })
+  }
+}

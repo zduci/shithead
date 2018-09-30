@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { loadRoom } from '../actions/shared'
+import { loadRoom, leaveRoom } from '../actions/shared'
 import { receiveOpponents } from '../actions/opponents'
 
 const RoomWrapper = styled.div`
@@ -60,8 +60,15 @@ class Room extends Component {
     dispatch(loadRoom(slug))
   }
 
+  handleLeaveRoom = () => {
+    const { dispatch, history } = this.props
+
+    dispatch(leaveRoom(history))
+  }
+
   render () {
     const { room, player, opponents } = this.props
+    const { handleLeaveRoom } = this
 
     return (
       <Fragment>
@@ -79,7 +86,7 @@ class Room extends Component {
               }
             </PlayerNames>
             <ReadyButton>Ready</ReadyButton>
-            <LeaveButton>Leave</LeaveButton>
+            <LeaveButton onClick={handleLeaveRoom}>Leave</LeaveButton>
           </RoomWrapper>
         }
       </Fragment>

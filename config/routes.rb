@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'app#index'
 
   post 'login', to: 'login#create'
+  delete 'login', to: 'login#destroy'
 
   get 'rooms/:slug.json', to: 'rooms#show', as: :room_json
   get 'rooms/:slug', to: 'app#index', as: :room

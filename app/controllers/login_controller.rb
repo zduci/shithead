@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def create
     room, player = JoinGame.in(room_name).add(player_name)
@@ -17,6 +17,24 @@ class LoginController < ApplicationController
       success: false,
       messages: e.message
     }
+  end
+
+  def destroy
+    player = Player.find_by(id: cookies.encrypted[:player_id])
+    if player
+      player_id = player.id
+      slug = player.room.slug
+      player.destroy!
+      cookies.delete(:player_id)
+
+      ActionCable.server.broadcast(
+        "rooms:#{slug}",
+        action: {
+          type: 'REMOVE_OPPONENT',
+          opponent_id: player_id
+        }
+      )
+    end
   end
 
   private
