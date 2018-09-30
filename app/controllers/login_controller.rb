@@ -29,7 +29,7 @@ class LoginController < ApplicationController
 
       ActionCable.server.broadcast(
         "rooms:#{slug}",
-        action: {
+        dispatchAction: {
           type: 'REMOVE_OPPONENT',
           opponent_id: player_id
         }

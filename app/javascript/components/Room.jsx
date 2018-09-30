@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { loadRoom, leaveRoom } from '../actions/shared'
 import { receiveOpponents } from '../actions/opponents'
+import { playerIsReady } from '../actions/player'
 
 const RoomWrapper = styled.div`
   display: flex;
@@ -66,9 +67,15 @@ class Room extends Component {
     dispatch(leaveRoom(history))
   }
 
+  handlePlayerIsReady = () => {
+    const { dispatch } = this.props
+
+    dispatch(playerIsReady())
+  }
+
   render () {
     const { room, player, opponents } = this.props
-    const { handleLeaveRoom } = this
+    const { handleLeaveRoom, handlePlayerIsReady } = this
 
     return (
       <Fragment>
@@ -85,7 +92,7 @@ class Room extends Component {
                 )
               }
             </PlayerNames>
-            <ReadyButton>Ready</ReadyButton>
+            <ReadyButton onClick={handlePlayerIsReady}>Ready</ReadyButton>
             <LeaveButton onClick={handleLeaveRoom}>Leave</LeaveButton>
           </RoomWrapper>
         }
