@@ -19,8 +19,6 @@ export function loadRoom (slug) {
       .then((response) => {
         const { room, player, opponents } = response.data.data
 
-        console.log('room is received', room)
-
         dispatch(receiveRoom(room, player, opponents))
 
         roomChannel.subscribe(room.slug, player.id, dispatch)
@@ -34,9 +32,7 @@ export function leaveRoom (history) {
       .then((response) => {
         history.push('/')
 
-        dispatch(receiveRoom(null))
-        dispatch(receivePlayer(null))
-        dispatch(receiveOpponents([]))
+        dispatch(receiveRoom(null, null, []))
       })
   }
 }
