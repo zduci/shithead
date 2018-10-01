@@ -6,6 +6,9 @@ const roomChannel = {
       channel: 'RoomsChannel' }, {
       received: function(data) {
         onReceive(data.dispatchAction)
+      },
+      disconnected: function () {
+        App.cable.subscriptions.remove(this)
       }
     })
   },
