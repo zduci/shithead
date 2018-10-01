@@ -6,7 +6,7 @@ class LoginController < ApplicationController
 
     cookies.encrypted[:player_id] = player.id
 
-    broadcast_player(room, player)
+    broadcast_add_player(room, player)
 
     render json: {
       success: true,
@@ -27,14 +27,9 @@ class LoginController < ApplicationController
       player.destroy!
       cookies.delete(:player_id)
 
-      ActionCable.server.broadcast(
-        "rooms:#{slug}",
-        dispatchAction: {
-          type: 'REMOVE_OPPONENT',
-          opponent_id: player_id
-        }
-      )
+      broadcast_remove_player(slug, player.id)
     end
+    head :ok
   end
 
   private
@@ -51,12 +46,22 @@ class LoginController < ApplicationController
     params.require(:login).permit(:player, :room)
   end
 
-  def broadcast_player(room, player)
+  def broadcast_add_player(room, player)
     ActionCable.server.broadcast(
-      "rooms:#{room.slug}",
+      "rooms_#{room.slug}",
       dispatchAction: {
         type: 'ADD_OPPONENT',
         opponent: player
+      }
+    )
+  end
+
+  def broadcast_remove_player(slug, player_id)
+    ActionCable.server.broadcast(
+      "rooms_#{slug}",
+      dispatchAction: {
+        type: 'REMOVE_OPPONENT',
+        opponent_id: player_id
       }
     )
   end
