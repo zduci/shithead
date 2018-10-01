@@ -21,7 +21,7 @@ export function loadRoom (slug) {
 
         dispatch(receiveRoom(room, player, opponents))
 
-        roomChannel.subscribe(room.slug, player.id, dispatch)
+        roomChannel.subscribe(action => dispatch(action))
       })
   }
 }

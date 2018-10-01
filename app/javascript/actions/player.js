@@ -12,7 +12,7 @@ export function playerIsReady () {
   return (dispatch, getState) => {
     const { room, player } = getState()
 
-    roomChannel.opponentIsReady(room.slug, player.id)
+    roomChannel.opponentIsReady(player.id)
     dispatch(setPlayerReady())
   }
 }

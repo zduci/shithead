@@ -1,19 +1,18 @@
 import { setOpponentReady } from '../actions/opponents'
 
 const roomChannel = {
-  subscribe (room_slug, player_id, dispatch) {
+  subscribe (onReceive) {
     App.rooms = App.cable.subscriptions.create({
-      channel: 'RoomsChannel',
-      slug: room_slug,
-      player_id: player_id }, {
+      channel: 'RoomsChannel' }, {
       received: function(data) {
-        dispatch(data.dispatchAction)
+        onReceive(data.dispatchAction)
       }
     })
   },
 
-  opponentIsReady (roomSlug, opponentId) {
-    App.rooms.perform('player_is_ready', { slug: roomSlug, dispatchAction: setOpponentReady(opponentId) })
+  opponentIsReady (opponentId) {
+    App.rooms.perform('player_is_ready', {
+      dispatchAction: setOpponentReady(opponentId) })
   }
 }
 
