@@ -13,7 +13,7 @@ export default {
       '/login.json')
   },
 
-  getRoom: slug => {
-    return axios.get(`/rooms/${slug}.json`)
+  getGame: () => {
+    return axios.get('/game.json')
   }
 }

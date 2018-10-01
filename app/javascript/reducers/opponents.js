@@ -1,10 +1,10 @@
-import { RECEIVE_ROOM } from '../actions/shared'
+import { RECEIVE_INITIAL_STATE } from '../actions/shared'
 import { ADD_OPPONENT, REMOVE_OPPONENT,
          SET_OPPONENT_READY } from '../actions/opponents'
 
 export function opponents (state = [], action) {
   switch (action.type) {
-    case RECEIVE_ROOM:
+    case RECEIVE_INITIAL_STATE:
       return action.opponents
     case ADD_OPPONENT:
       return [ ...state, action.opponent ]

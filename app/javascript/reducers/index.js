@@ -6,5 +6,5 @@ import { opponents } from './opponents'
 export default combineReducers({
   room,
   player,
-  opponents,
+  opponents
 })
