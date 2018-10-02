@@ -1,8 +1,21 @@
-class LoginController < ApplicationController
+class LoginsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
+
+  def show
+    if player = Player.find_by(id: cookies.encrypted[:player_id])
+      render json: {
+        success: true,
+        data: { room: player.room } }
+    else
+      render json: {
+        success: true,
+        data: { room: nil } }
+    end
+  end
 
   def create
     room, player = JoinGame.in(room_name).add(player_name)
+    opponents = room.game.players.where.not(id: player.id)
 
     cookies.encrypted[:player_id] = player.id
 
@@ -10,13 +23,13 @@ class LoginController < ApplicationController
 
     render json: {
       success: true,
-      data: { room: room }
-    }
+      data: { room: room,
+              player: player,
+              opponents: opponents } }
   rescue StandardError => e
     render json: {
       success: false,
-      messages: e.message
-    }
+      messages: e.message }
   end
 
   def destroy

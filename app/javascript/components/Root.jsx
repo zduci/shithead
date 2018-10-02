@@ -1,11 +1,8 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-import { withRouter } from 'react-router'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Login from './Login'
 import Room from './Room'
-import { loadInitialState } from '../actions/shared'
 
 const AppWrapper = styled.div`
   height: 100%;
@@ -16,25 +13,13 @@ const AppWrapper = styled.div`
   background-size: cover;
 `
 
-class Root extends Component {
-  componentDidMount () {
-    const { dispatch, history } = this.props
-
-    dispatch(loadInitialState(history))
-  }
-
-  render () {
-    return (
-      <Fragment>
-        <AppWrapper>
-          <Route path='/' exact component={Login} />
-          <Route path='/rooms/:slug' exact component={Room} />
-        </AppWrapper>
-      </Fragment>
-    )
-  }
+const Root = () => {
+  return(
+    <AppWrapper>
+      <Route path='/' exact component={Login} />
+      <Route path='/rooms/:slug' exact component={Room} />
+    </AppWrapper>
+  )
 }
 
-const mapStateToProps = state => state
-
-export default withRouter(connect(mapStateToProps)(Root))
+export default Root

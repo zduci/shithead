@@ -1,6 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import LoadingBar from 'react-redux-loading-bar'
 import styled from 'styled-components'
 import api from 'utils/api'
+import { authenticate } from '../actions/shared'
 
 const LoginForm = styled.form`
   display: flex;
@@ -44,11 +48,18 @@ const Error = styled.div`
   margin-bottom: 10px;
 `
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     player: '',
     room: ''
   }
+
+  componentDidMount () {
+    const { dispatch, history, room } = this.props
+
+    dispatch(authenticate(history))
+  }
+
 
   isButtonDisabled () {
     return !(this.state.player.length && this.state.room.length)
@@ -63,39 +74,52 @@ export default class Login extends Component {
     api.joinRoom(this.state.room, this.state.player).then(response => {
       const { success, data, messages } = response.data
 
-      if (response.data.success === true) {
+      if (success === true) {
         const { slug } = data.room
 
         this.props.history.push(`/rooms/${slug}`)
       } else {
         this.setState({
-          error: response.data.messages
+          error: messages
         })
       }
     })
   }
 
   render () {
+    const finishedLoading = this.props.loadingBar.default == 0
+
     return (
-      <LoginForm onSubmit={this.joinRoom} >
-        <h1>Shithead</h1>
-        <Error>{this.state.error}</Error>
-        <label htmlFor='player'>
-          Player:
-        </label>
-        <Input name='player'
-               type='text'
-               onChange={this.setPlayer} />
-        <label htmlFor='room'>
-          Room:
-        </label>
-        <Input name='room'
-               type='text'
-               onChange={this.setRoom} />
-        <PlayButton disabled={this.isButtonDisabled()} >
-          Play
-        </PlayButton>
-      </LoginForm>
+      <Fragment>
+        <header>
+          <LoadingBar style={{ backgroundColor: 'black', height: '5px' }} />
+        </header>
+        { finishedLoading &&
+          <LoginForm onSubmit={this.joinRoom} >
+            <h1>Shithead</h1>
+            <Error>{this.state.error}</Error>
+            <label htmlFor='player'>
+              Player:
+            </label>
+            <Input name='player'
+                   type='text'
+                   onChange={this.setPlayer} />
+            <label htmlFor='room'>
+              Room:
+            </label>
+            <Input name='room'
+                   type='text'
+                   onChange={this.setRoom} />
+            <PlayButton disabled={this.isButtonDisabled()} >
+              Play
+            </PlayButton>
+          </LoginForm>
+        }
+      </Fragment>
     )
   }
 }
+
+const mapStateToProps = state => state
+
+export default withRouter(connect(mapStateToProps)(Login))

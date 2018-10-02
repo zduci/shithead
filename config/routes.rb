@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   resource :game, only: :show
 
-  resources :login, only: [:create, :destroy]
+  resource :login, only: [:show, :create, :destroy]
 end
