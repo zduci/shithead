@@ -9,13 +9,15 @@ class GamesController < ApplicationController
         success: true,
         data: { room: room,
                 player: player,
-                opponents: opponents } }
+                opponents: opponents,
+                game: room.game } }
     else
       render json: {
         success: true,
         data: { room: nil,
                 player: nil,
-                opponents: [] } }
+                opponents: [],
+                game: nil } }
     end
   end
 end

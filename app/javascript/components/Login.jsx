@@ -54,7 +54,7 @@ class Login extends Component {
   }
 
   componentDidMount () {
-    const { dispatch, history, room } = this.props
+    const { dispatch, history } = this.props
 
     dispatch(authenticate(history))
   }
@@ -116,6 +116,6 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => state
+const mapStateToProps = state => ({ loadingBar: state.loadingBar })
 
 export default withRouter(connect(mapStateToProps)(Login))

@@ -20,12 +20,13 @@ export function authenticate (history) {
   }
 }
 
-export function receiveInitialState (room, player, opponents) {
+export function receiveInitialState (room, player, opponents, game) {
   return {
     type: RECEIVE_INITIAL_STATE,
     room: room,
     player: player,
-    opponents: opponents
+    opponents: opponents,
+    game: game
   }
 }
 
@@ -34,9 +35,9 @@ export function loadInitialState () {
     dispatch(showLoading())
     return api.getGame()
       .then(response => {
-        const { room, player, opponents } = response.data.data
+        const { room, player, opponents, game } = response.data.data
 
-        dispatch(receiveInitialState(room, player, opponents))
+        dispatch(receiveInitialState(room, player, opponents, game))
         roomChannel.subscribe(action => dispatch(action))
         dispatch(hideLoading())
       })
@@ -49,7 +50,7 @@ export function leaveRoom (history) {
       .then((response) => {
         history.push('/')
 
-        dispatch(receiveInitialState(null, null, []))
+        dispatch(receiveInitialState(null, null, [], null))
       })
   }
 }
