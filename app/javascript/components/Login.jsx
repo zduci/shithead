@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import LoadingBar from 'react-redux-loading-bar'
 import styled from 'styled-components'
 import api from 'utils/api'
 import { authenticate } from '../actions/shared'
@@ -91,9 +90,6 @@ class Login extends Component {
 
     return (
       <Fragment>
-        <header>
-          <LoadingBar style={{ backgroundColor: 'black', height: '5px' }} />
-        </header>
         { finishedLoading &&
           <LoginForm onSubmit={this.joinRoom} >
             <h1>Shithead</h1>

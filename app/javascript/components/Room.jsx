@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import LoadingBar from 'react-redux-loading-bar'
 import { leaveRoom, loadInitialState } from '../actions/shared'
 import { receiveOpponents } from '../actions/opponents'
 import { playerIsReady } from '../actions/player'
@@ -80,9 +79,6 @@ class Room extends Component {
 
     return (
       <Fragment>
-        <header>
-          <LoadingBar style={{ backgroundColor: 'black', height: '5px' }} />
-        </header>
         { room &&
           <RoomWrapper>
             <h2>{room.name}</h2>
