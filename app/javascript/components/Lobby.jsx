@@ -56,17 +56,12 @@ const ReadyButton = styled(LeaveButton)`
 `
 
 class Room extends Component {
-  handleLeaveRoom = () => {
-    const { dispatch, history } = this.props
 
-    dispatch(leaveRoom(history))
-  }
+  navigateToLogin = () => this.props.history.push('/')
 
-  handlePlayerIsReady = () => {
-    const { dispatch } = this.props
+  handleLeaveRoom = () => this.props.dispatch(leaveRoom(this.navigateToLogin))
 
-    dispatch(playerIsReady())
-  }
+  handlePlayerIsReady = () => this.props.dispatch(playerIsReady())
 
   render () {
     const { room, player, opponents, loadingBar } = this.props

@@ -53,12 +53,9 @@ class Login extends Component {
     room: ''
   }
 
-  componentDidMount () {
-    const { dispatch, history } = this.props
+  navigateToRoom = (slug) => this.props.history.push(`/rooms/${slug}`)
 
-    dispatch(authenticate(history))
-  }
-
+  componentDidMount = () => this.props.dispatch(authenticate(this.navigateToRoom))
 
   isButtonDisabled () {
     return !(this.state.player.length && this.state.room.length)
@@ -76,7 +73,7 @@ class Login extends Component {
       if (success === true) {
         const { slug } = data.room
 
-        this.props.history.push(`/rooms/${slug}`)
+        this.navigateToRoom(slug)
       } else {
         this.setState({
           error: messages

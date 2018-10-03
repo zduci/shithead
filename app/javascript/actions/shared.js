@@ -5,7 +5,7 @@ import roomChannel from '../utils/roomChannel.js'
 export const LOAD_INITIAL_STATE = 'LOAD_INITIAL_STATE'
 export const RECEIVE_INITIAL_STATE = 'RECEIVE_INITIAL_STATE'
 
-export function authenticate (history) {
+export function authenticate (navigateToRoom) {
   return (dispatch) => {
     dispatch(showLoading())
     return api.authenticate()
@@ -13,7 +13,7 @@ export function authenticate (history) {
         const { room } = response.data.data
 
         if (room) {
-          history.push(`/rooms/${room.slug}`)
+          navigateToRoom(room.slug)
         }
         dispatch(hideLoading())
       })
@@ -44,11 +44,11 @@ export function loadInitialState () {
   }
 }
 
-export function leaveRoom (history) {
+export function leaveRoom (navigateToLogin) {
   return (dispatch) => {
     return api.leaveRoom()
       .then((response) => {
-        history.push('/')
+        navigateToLogin()
 
         dispatch(receiveInitialState(null, null, [], null))
       })
