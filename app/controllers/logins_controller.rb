@@ -24,7 +24,7 @@ class LoginsController < ApplicationController
       ActionCable.server.remote_connections.where(current_player: @player).disconnect
       slug = @player.room.slug
       @player.destroy!
-      cookies.delete(:player.id)
+      cookies.delete(@player.id)
 
       broadcast_remove_player(slug, @player.id)
     end
