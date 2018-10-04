@@ -2,46 +2,31 @@ class LoginsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def show
-    if player = Player.find_by(id: cookies.encrypted[:player_id])
-      render json: {
-        success: true,
-        data: { room: player.room } }
-    else
-      render json: {
-        success: true,
-        data: { room: nil } }
-    end
+    @player = Player.find_by(id: cookies.encrypted[:player_id])
+    render 'app/game'
   end
 
   def create
-    room, player = JoinGame.in(room_name).add(player_name)
-    opponents = room.game.players.where.not(id: player.id)
+    room, @player = JoinGame.in(room_name).add(player_name)
 
-    cookies.encrypted[:player_id] = player.id
+    cookies.encrypted[:player_id] = @player.id
 
-    broadcast_add_player(room, player)
+    broadcast_add_player(room, @player)
 
-    render json: {
-      success: true,
-      data: { room: room,
-              player: player,
-              opponents: opponents } }
-  rescue StandardError => e
-    render json: {
-      success: false,
-      messages: e.message }
+    render 'app/game'
+  rescue StandardError => @e
+    render 'app/error'
   end
 
   def destroy
-    player = Player.find_by(id: cookies.encrypted[:player_id])
-    if player
-      ActionCable.server.remote_connections.where(current_player: player).disconnect
-      player_id = player.id
-      slug = player.room.slug
-      player.destroy!
-      cookies.delete(:player_id)
+    @player = Player.find_by(id: cookies.encrypted[:player_id])
+    if @player
+      ActionCable.server.remote_connections.where(current_player: @player).disconnect
+      slug = @player.room.slug
+      @player.destroy!
+      cookies.delete(:player.id)
 
-      broadcast_remove_player(slug, player.id)
+      broadcast_remove_player(slug, @player.id)
     end
     head :ok
   end
