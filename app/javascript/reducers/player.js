@@ -6,7 +6,7 @@ export function player (state = null, action) {
     case RECEIVE_INITIAL_STATE:
       return action.player
     case SET_PLAYER_READY:
-      return { ...state, is_ready: true }
+      return { ...state, isReady: true }
     default:
       return state
   }

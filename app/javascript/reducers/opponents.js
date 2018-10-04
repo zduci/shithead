@@ -12,7 +12,7 @@ export function opponents (state = [], action) {
       return state.filter(opponent => opponent.id != action.opponent_id)
     case SET_OPPONENT_READY:
       return state.map(opponent =>
-        opponent.id === action.opponent_id ? { ...opponent, is_ready: true } : opponent)
+        opponent.id === action.opponent_id ? { ...opponent, isReady: true } : opponent)
     default:
       return state
   }

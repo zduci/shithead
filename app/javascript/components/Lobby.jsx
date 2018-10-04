@@ -72,17 +72,17 @@ class Room extends Component {
           <RoomWrapper>
             <h2>{room.name}</h2>
             <PlayerNames>
-              <PlayerName key={player.id} isReady={player.is_ready}>
+              <PlayerName key={player.id} isReady={player.isReady}>
                 { player.name }
               </PlayerName>
               { opponents.map(opponent =>
-                  <PlayerName key={opponent.id} isReady={opponent.is_ready}>
+                  <PlayerName key={opponent.id} isReady={opponent.isReady}>
                     { opponent.name }
                   </PlayerName>
                 )
               }
             </PlayerNames>
-            <ReadyButton onClick={this.handlePlayerIsReady} disabled={player.is_ready}>Ready</ReadyButton>
+            <ReadyButton onClick={this.handlePlayerIsReady} disabled={player.isReady}>Ready</ReadyButton>
             <LeaveButton onClick={this.handleLeaveRoom}>Leave</LeaveButton>
           </RoomWrapper>
         }
