@@ -1,0 +1,6 @@
+{ success: true,
+  data: {
+    room: @player.try(:room),
+    player: @player,
+    opponents: @player.try(:opponents) || [],
+    game: @player.try(:game) }  }

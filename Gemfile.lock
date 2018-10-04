@@ -89,6 +89,8 @@ GEM
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
+    jb (0.4.1)
+      multi_json
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -236,6 +238,7 @@ DEPENDENCIES
   foreman
   friendly_id (~> 5.2.0)
   haml (~> 5.0, >= 5.0.4)
+  jb (~> 0.4.1)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mysql2
