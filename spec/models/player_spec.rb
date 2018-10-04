@@ -9,4 +9,14 @@ describe Player do
   context 'validations' do
     it { should validate_uniqueness_of(:name).scoped_to(:game_id) }
   end
+
+  describe '#opponents' do
+    it 'returns the other players in this game' do
+      player = build(:player)
+      opponent = build(:player)
+      create(:game, players: [player, opponent])
+
+      expect(player.opponents).to eq([opponent])
+    end
+  end
 end
