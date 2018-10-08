@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Room = () => {
-  <div/>
-}
+const Game = () => (
+  <div>Game started!</div>
+)
 
-export default Room
+export default Game
