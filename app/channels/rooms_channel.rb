@@ -4,8 +4,13 @@ class RoomsChannel < ApplicationCable::Channel
   end
 
   def player_is_ready(data)
-    Player.find(data['dispatchAction']['opponent_id']).update(is_ready: true)
-    ActionCable.server.broadcast(room, data)
+    player = Player.find(data['dispatchAction']['opponent_id'])
+    player.update(is_ready: true)
+    if Policies::GameReadyToStart.new(player.game).check?
+      player.game.playing!
+    else
+      ActionCable.server.broadcast(room, data)
+    end
   end
 
   def unsubscribed
