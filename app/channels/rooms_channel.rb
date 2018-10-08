@@ -6,8 +6,10 @@ class RoomsChannel < ApplicationCable::Channel
   def player_is_ready(data)
     player = Player.find(data['dispatchAction']['opponent_id'])
     player.update(is_ready: true)
-    if Policies::GameReadyToStart.new(player.game).check?
-      player.game.playing!
+    game = player.game
+    if Policies::GameReadyToStart.new(game).check?
+      game.playing!
+      RoomBroadcast.new(room).set_game_status(game.status)
     else
       RoomBroadcast.new(room).rebroadcast(data)
     end
