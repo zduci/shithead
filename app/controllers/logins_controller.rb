@@ -46,22 +46,10 @@ class LoginsController < ApplicationController
   end
 
   def broadcast_add_player(room, player)
-    ActionCable.server.broadcast(
-      "rooms_#{room.slug}",
-      dispatchAction: {
-        type: 'ADD_OPPONENT',
-        opponent: player
-      }
-    )
+    RoomBroadcast.new(room.slug).add_opponent(player)
   end
 
   def broadcast_remove_player(slug, player_id)
-    ActionCable.server.broadcast(
-      "rooms_#{slug}",
-      dispatchAction: {
-        type: 'REMOVE_OPPONENT',
-        opponent_id: player_id
-      }
-    )
+    RoomBroadcast.new(slug).remove_opponent(player_id)
   end
 end
