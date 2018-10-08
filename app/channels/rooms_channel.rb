@@ -9,7 +9,7 @@ class RoomsChannel < ApplicationCable::Channel
     if Policies::GameReadyToStart.new(player.game).check?
       player.game.playing!
     else
-      ActionCable.server.broadcast(room, data)
+      RoomBroadcast.new(room).rebroadcast(data)
     end
   end
 

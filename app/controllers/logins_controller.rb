@@ -46,10 +46,10 @@ class LoginsController < ApplicationController
   end
 
   def broadcast_add_player(room, player)
-    RoomBroadcast.new(room.slug).add_opponent(player)
+    RoomBroadcast.build(room.slug).add_opponent(player)
   end
 
   def broadcast_remove_player(slug, player_id)
-    RoomBroadcast.new(slug).remove_opponent(player_id)
+    RoomBroadcast.build(slug).remove_opponent(player_id)
   end
 end
