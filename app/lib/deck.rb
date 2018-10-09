@@ -9,6 +9,10 @@ class Deck
     cards.shuffle!
   end
 
+  def draw(amount)
+    cards.shift(amount)
+  end
+
   private
 
   def build_deck
