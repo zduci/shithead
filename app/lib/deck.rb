@@ -7,6 +7,7 @@ class Deck
 
   def shuffle
     cards.shuffle!
+    self
   end
 
   def draw(amount)
