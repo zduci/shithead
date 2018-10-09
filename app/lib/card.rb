@@ -5,4 +5,8 @@ class Card
     @rank = rank
     @suit = suit
   end
+
+  def <=>(other)
+    rank.value <=> other.rank.value
+  end
 end
