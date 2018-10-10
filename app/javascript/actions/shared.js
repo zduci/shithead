@@ -1,6 +1,7 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import api from '../utils/api'
 import roomChannel from '../utils/roomChannel.js'
+import playerChannel from '../utils/playerChannel.js'
 
 export const LOAD_INITIAL_STATE = 'LOAD_INITIAL_STATE'
 export const RECEIVE_INITIAL_STATE = 'RECEIVE_INITIAL_STATE'
@@ -39,6 +40,7 @@ export function loadInitialState () {
 
         dispatch(receiveInitialState(room, player, opponents, game))
         roomChannel.subscribe(action => dispatch(action))
+        playerChannel.subscribe(action => dispatch(action))
         dispatch(hideLoading())
       })
   }
