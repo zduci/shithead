@@ -42,7 +42,6 @@ gem 'friendly_id', '~> 5.2.0'
 
 gem 'haml', '~> 5.0', '>= 5.0.4'
 
-gem 'jb', '~> 0.4.1'
 gem 'cp-sparrow', '~> 0.0.16'
 
 group :development, :test do
