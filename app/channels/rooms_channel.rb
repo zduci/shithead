@@ -9,7 +9,8 @@ class RoomsChannel < ApplicationCable::Channel
     game = player.game
     if Policies::GameReadyToStart.new(game).check?
       game.playing!
-      RoomBroadcast.new(room).set_game_status(game.status)
+      Dealer.new(game).deal
+      PlayerBroadcast.new(game.players).receiveInitialState(game)
     else
       RoomBroadcast.new(room).rebroadcast(data)
     end
