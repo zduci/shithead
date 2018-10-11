@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_193501) do
+ActiveRecord::Schema.define(version: 2018_10_11_193453) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status", default: 0
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2018_10_09_193501) do
     t.text "hand"
     t.text "face_down_cards"
     t.text "face_up_cards"
+    t.boolean "has_selected_hand", default: false
   end
 
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
