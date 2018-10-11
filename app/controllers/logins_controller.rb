@@ -2,20 +2,21 @@ class LoginsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
   def show
-    @player = Player.find_by(id: cookies.encrypted[:player_id])
-    render 'app/game'
+    player = Player.find_by(id: cookies.encrypted[:player_id])
+
+    render json: Serializers::Responses::State.new(player).to_h
   end
 
   def create
-    room, @player = JoinGame.in(room_name).add(player_name)
+    room, player = JoinGame.in(room_name).add(player_name)
 
-    cookies.encrypted[:player_id] = @player.id
+    cookies.encrypted[:player_id] = player.id
 
-    broadcast_add_player(room, @player)
+    broadcast_add_player(room, player)
 
-    render 'app/game'
-  rescue StandardError => @e
-    render 'app/error'
+    render json: Serializers::Responses::State.new(player).to_h
+  rescue StandardError => e
+    render json: Serializers::Responses::Error.new(e).to_h
   end
 
   def destroy
