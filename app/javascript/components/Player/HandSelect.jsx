@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Card from './Card'
 
+const MAX_CARDS = 3
+
 class HandSelect extends Component {
   state = {
     selectedCards: []
@@ -13,7 +15,7 @@ class HandSelect extends Component {
         return {
           selectedCards: selectedCards.filter(card => card !== id)
         }
-      } else {
+      } else if (selectedCards.length < MAX_CARDS) {
         return {
           selectedCards: [ ...selectedCards, id ]
         }
