@@ -3,22 +3,45 @@ import { connect } from 'react-redux'
 import Card from './Card'
 
 class HandSelect extends Component {
+  state = {
+    selectedCards: []
+  }
+
+  toggleCard (id) {
+    this.setState(({ selectedCards }) => {
+      if (this.isSelected(id, selectedCards)) {
+        return {
+          selectedCards: selectedCards.filter(card => card !== id)
+        }
+      } else {
+        return {
+          selectedCards: [ ...selectedCards, id ]
+        }
+      }
+    })
+  }
+
+  isSelected (id, selectedCards = this.state.selectedCards) {
+    return selectedCards.includes(id)
+  }
+
   render () {
     const { player, opponents } = this.props
 
     return (
       <Fragment>
-        { player.hand.map(card => (
-            <Card key={card.id}
-                  card={card} />
-          ))
-        }
-        { player.faceUpCards.map(card => (
-            <Card key={card.id}
-                  card={card} />
-          ))
-        }
+        { player.hand.map(card => this.renderCard(card)) }
+        { player.faceUpCards.map(card => this.renderCard(card)) }
       </Fragment>
+    )
+  }
+
+  renderCard (card) {
+    return (
+      <Card key={card.id}
+            card={card}
+            onClick={this.toggleCard.bind(this, card.id)}
+            isSelected={this.isSelected(card.id)} />
     )
   }
 }
