@@ -6,7 +6,8 @@ module Serializers
 
     def to_a
       cards.map do |card|
-        { rank: card.rank.name,
+        { id: card.id,
+          rank: card.rank.name,
           suit: card.suit }
       end
     end

@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import HandSelect from './Player/HandSelect'
 
-const Game = () => (
-  <div>Game started!</div>
-)
+class Game extends Component {
+  render () {
+    const { player, opponents } = this.props
 
-export default Game
+    return (
+      <Fragment>
+        { !player.haSelectedHand && <HandSelect/> }
+      </Fragment>
+    )
+  }
+}
+
+const mapStateToProps = ({ player }) => ({ player })
+
+export default connect(mapStateToProps)(Game)

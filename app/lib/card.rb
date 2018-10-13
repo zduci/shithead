@@ -6,6 +6,10 @@ class Card
     @suit = suit
   end
 
+  def id
+    "#{rank.name}#{suit}"
+  end
+
   def <=>(other)
     rank.value <=> other.rank.value
   end

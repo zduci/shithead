@@ -24,6 +24,6 @@ class Room extends Component {
   }
 }
 
-const mapStateToProps = state => ({ game: state.game })
+const mapStateToProps = ({ game }) => ({ game })
 
 export default connect(mapStateToProps)(Room)
