@@ -1,14 +1,18 @@
 class PlayerBroadcast
-  def initialize(players)
-    @players = players
+  def initialize(player)
+    @player = player
   end
   
-  def receiveInitialState(game)
+  def self.receiveInitialState(players)
     players.each do |player|
-      broadcast_action(
-        channel_for(player),
-        Serializers::Actions::ReceiveInitialState.new(player).to_h)
+      new(player).receiveInitialState
     end
+  end
+
+  def receiveInitialState
+    broadcast_action(
+      channel_for(player),
+      Serializers::Actions::ReceiveInitialState.new(player).to_h)
   end
 
   private
