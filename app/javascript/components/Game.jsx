@@ -8,7 +8,7 @@ class Game extends Component {
 
     return (
       <Fragment>
-        { !player.haSelectedHand && <HandSelect/> }
+        <Player/>
       </Fragment>
     )
   }
