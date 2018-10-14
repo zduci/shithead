@@ -1,19 +1,28 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import HandSelect from './Player/HandSelect'
+import styled from 'styled-components'
+import Player from './Player'
+import OpponentTop from './OpponentTop'
+
+const GameWrapper = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+`
 
 class Game extends Component {
   render () {
     const { player, opponents } = this.props
+    const opponentTop = opponents[0]
 
     return (
-      <Fragment>
+      <GameWrapper>
+        <OpponentTop opponent={opponentTop}/>
         <Player/>
-      </Fragment>
+      </GameWrapper>
     )
   }
 }
 
-const mapStateToProps = ({ player }) => ({ player })
+const mapStateToProps = ({ player, opponents }) => ({ player, opponents })
 
 export default connect(mapStateToProps)(Game)

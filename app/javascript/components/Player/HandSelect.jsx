@@ -1,8 +1,14 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Card from './Card'
+import styled from 'styled-components'
+import Card from '../Card'
 
 const MAX_CARDS = 3
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`
 
 class HandSelect extends Component {
   state = {
@@ -28,13 +34,13 @@ class HandSelect extends Component {
   }
 
   render () {
-    const { player, opponents } = this.props
+    const { player } = this.props
 
     return (
-      <Fragment>
+      <Wrapper>
         { player.hand.map(card => this.renderCard(card)) }
         { player.faceUpCards.map(card => this.renderCard(card)) }
-      </Fragment>
+      </Wrapper>
     )
   }
 
