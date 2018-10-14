@@ -17,9 +17,6 @@ class RoomBroadcast
                      opponent_id: opponent_id)
   end
 
-  def set_game_status(status)
-    broadcast_action(type: 'SET_GAME_STATUS', status: status)
-  end
 
   def rebroadcast(data)
     broadcast(data)
