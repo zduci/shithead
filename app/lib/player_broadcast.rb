@@ -11,21 +11,18 @@ class PlayerBroadcast
 
   def receiveInitialState
     broadcast_action(
-      channel_for(player),
       Serializers::Actions::ReceiveInitialState.new(player).to_h)
   end
 
   private
 
-  def channel_for(player)
+  attr_reader :player
+
+  def channel
     "player_#{player.id}"
   end
 
-  private
-
-  attr_reader :players
-
-  def broadcast_action(channel, action)
+  def broadcast_action(action)
     ActionCable.server.broadcast(channel, dispatchAction: action)
   end
 end

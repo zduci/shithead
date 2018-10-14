@@ -2,12 +2,32 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Card from '../Card'
+import playerChannel from '../../utils/playerChannel'
 
 const MAX_CARDS = 3
 
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
+`
+
+const SelectHandButton = styled.button`
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: ${props => props.disabled ? 'grey' : 'green'};
+  border-color: ${props => props.disabled ? 'grey' : 'green'};
+  width: 70px;
 `
 
 class HandSelect extends Component {
@@ -33,6 +53,16 @@ class HandSelect extends Component {
     return selectedCards.includes(id)
   }
 
+  canSubmit () {
+    return this.state.selectedCards.length === MAX_CARDS
+  }
+
+  submitHand = (e) => {
+    e.preventDefault()
+
+    playerChannel.selectHand(this.state.selectedCards)
+  }
+
   render () {
     const { player } = this.props
 
@@ -40,6 +70,10 @@ class HandSelect extends Component {
       <Wrapper>
         { player.hand.map(card => this.renderCard(card)) }
         { player.faceUpCards.map(card => this.renderCard(card)) }
+        <SelectHandButton disabled={!this.canSubmit()}
+                          onClick={this.submitHand} >
+         Select
+        </SelectHandButton>
       </Wrapper>
     )
   }

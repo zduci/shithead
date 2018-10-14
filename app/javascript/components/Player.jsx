@@ -7,7 +7,8 @@ function Player (props) {
 
   return (
     <Fragment>
-      { !player.haSelectedHand && <HandSelect/> }
+      { !player.hasSelectedHand && <HandSelect/> }
+      { player.hasSelectedHand && <p>Hand</p> }
     </Fragment>
   )
 }

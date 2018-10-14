@@ -8,6 +8,7 @@ function OpponentTop (props) {
     <div>
       { !hasSelectedHand && <HandSelect faceUpCards={faceUpCards}
                                         hand={hand} /> }
+      { hasSelectedHand && <p>Hand</p> }
     </div>
   )
 }

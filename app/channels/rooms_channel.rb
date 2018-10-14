@@ -5,7 +5,7 @@ class RoomsChannel < ApplicationCable::Channel
 
   def player_is_ready(data)
     player = Player.find(data['dispatchAction']['opponent_id'])
-    player.update(is_ready: true)
+    player.update!(is_ready: true)
     game = player.game
     if Policies::GameReadyToStart.new(game).check?
       game.playing!

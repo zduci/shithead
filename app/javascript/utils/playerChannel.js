@@ -9,6 +9,11 @@ const playerChannel = {
         App.cable.subscriptions.remove(this)
       }
     })
+  },
+
+  selectHand (cards) {
+    App.player.perform('select_hand', {
+      cards: cards })
   }
 }
 
