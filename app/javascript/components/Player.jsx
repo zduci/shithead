@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import HandSelect from './Player/HandSelect'
+import Hand from './Player/Hand'
 
 function Player (props) {
   const { player } = props
@@ -8,7 +9,7 @@ function Player (props) {
   return (
     <Fragment>
       { !player.hasSelectedHand && <HandSelect/> }
-      { player.hasSelectedHand && <p>Hand</p> }
+      { player.hasSelectedHand && <Hand/> }
     </Fragment>
   )
 }
