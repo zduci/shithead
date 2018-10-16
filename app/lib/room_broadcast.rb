@@ -17,6 +17,13 @@ class RoomBroadcast
                      opponent_id: opponent_id)
   end
 
+  def set_opponent_hand(opponent)
+    broadcast_action(
+      type: 'SET_OPPONENT_HAND',
+      opponentId: opponent.id,
+      hand: Serializers::HiddenCards.new(opponent.hand.cards).to_h,
+      faceUpCards: Serializers::Cards.new(opponent.face_up_cards).to_a)
+  end
 
   def rebroadcast(data)
     broadcast(data)

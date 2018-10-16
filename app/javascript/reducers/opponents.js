@@ -1,6 +1,25 @@
 import { RECEIVE_INITIAL_STATE } from '../actions/shared'
 import { ADD_OPPONENT, REMOVE_OPPONENT,
-         SET_OPPONENT_READY } from '../actions/opponents'
+         SET_OPPONENT_READY, SET_OPPONENT_HAND} from '../actions/opponents'
+
+function setOpponentReady (state, action) {
+  return state.map(function (opponent) {
+     return opponent.id === action.opponent_id
+       ? { ...opponent, isReady: true }
+       : opponent
+  })
+}
+
+function setOpponentHand (state, action) {
+  return state.map(function (opponent) {
+     return opponent.id === action.opponentId
+       ? { ...opponent,
+           faceUpCards: action.faceUpCards,
+           hand: action.hand,
+           hasSelectedHand: true }
+       : opponent
+  })
+}
 
 export function opponents (state = [], action) {
   switch (action.type) {
@@ -11,8 +30,9 @@ export function opponents (state = [], action) {
     case REMOVE_OPPONENT:
       return state.filter(opponent => opponent.id != action.opponent_id)
     case SET_OPPONENT_READY:
-      return state.map(opponent =>
-        opponent.id === action.opponent_id ? { ...opponent, isReady: true } : opponent)
+      return setOpponentReady(state, action)
+    case SET_OPPONENT_HAND:
+      return setOpponentHand(state, action)
     default:
       return state
   }

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import HandSelect from './OpponentTop/HandSelect'
+import Hand from './OpponentTop/Hand'
 
 function OpponentTop (props) {
   const { hasSelectedHand, faceUpCards, hand } = props.opponent
@@ -8,7 +9,7 @@ function OpponentTop (props) {
     <div>
       { !hasSelectedHand && <HandSelect faceUpCards={faceUpCards}
                                         hand={hand} /> }
-      { hasSelectedHand && <p>Hand</p> }
+      { hasSelectedHand && <Hand hand={hand} /> }
     </div>
   )
 }

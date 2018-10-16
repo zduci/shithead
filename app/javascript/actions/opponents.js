@@ -1,6 +1,7 @@
 export const ADD_OPPONENT = 'ADD_OPPONENT'
 export const REMOVE_OPPONENT = 'REMOVE_OPPONENT'
 export const SET_OPPONENT_READY = 'SET_OPPONENT_READY'
+export const SET_OPPONENT_HAND = 'SET_OPPONENT_HAND'
 
 export function addOpponent (opponent) {
   return {
