@@ -32,7 +32,7 @@ export function receiveInitialState (room, player, opponents, game) {
 }
 
 export function loadInitialState () {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(showLoading())
     return api.getGame()
       .then(response => {
@@ -47,9 +47,9 @@ export function loadInitialState () {
 }
 
 export function leaveRoom (navigateToLogin) {
-  return (dispatch) => {
+  return dispatch => {
     return api.leaveRoom()
-      .then((response) => {
+      .then(response => {
         navigateToLogin()
 
         dispatch(receiveInitialState(null, null, [], null))

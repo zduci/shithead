@@ -56,7 +56,6 @@ const ReadyButton = styled(LeaveButton)`
 `
 
 class Room extends Component {
-
   navigateToLogin = () => this.props.history.push('/')
 
   handleLeaveRoom = () => this.props.dispatch(leaveRoom(this.navigateToLogin))

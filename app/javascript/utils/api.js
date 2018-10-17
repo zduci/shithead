@@ -20,5 +20,10 @@ export default {
 
   getGame: () => {
     return axios.get('/game.json')
+  },
+
+  leaveGame: () => {
+    return axios.delete(
+      '/game.json')
   }
 }

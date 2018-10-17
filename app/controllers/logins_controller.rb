@@ -4,7 +4,13 @@ class LoginsController < ApplicationController
   def show
     player = Player.find_by(id: cookies.encrypted[:player_id])
 
-    render json: Serializers::Responses::State.new(player).to_h
+    if player && (player.game.ended? || player.game.abandoned?)
+      cookies.delete(:player_id)
+      disconnect(player)
+      render json: Serializers::Responses::State.new(nil).to_h
+    else
+      render json: Serializers::Responses::State.new(player).to_h
+    end
   end
 
   def create
@@ -22,7 +28,7 @@ class LoginsController < ApplicationController
   def destroy
     player = Player.find_by(id: cookies.encrypted[:player_id])
     if player
-      ActionCable.server.remote_connections.where(current_player: player).disconnect
+      disconnect(player)
       slug = player.room.slug
       player.destroy!
       cookies.delete(:player_id)
@@ -52,5 +58,11 @@ class LoginsController < ApplicationController
 
   def broadcast_remove_player(slug, player_id)
     RoomBroadcast.build(slug).remove_opponent(player_id)
+  end
+
+  def disconnect(player)
+    ActionCable.server.remote_connections
+               .where(current_player: player)
+               .disconnect
   end
 end

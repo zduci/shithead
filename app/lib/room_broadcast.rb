@@ -17,6 +17,10 @@ class RoomBroadcast
                      opponent_id: opponent_id)
   end
 
+  def game_abandoned
+    broadcast_action(type: 'GAME_ABANDONED')
+  end
+
   def set_opponent_hand(opponent)
     broadcast_action(
       type: 'SET_OPPONENT_HAND',

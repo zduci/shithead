@@ -1,0 +1,1 @@
+export const GAME_ABANDONED = 'GAME_ABANDONED'
