@@ -8,7 +8,7 @@ class JoinGame
     room = find_or_create_room(room_name)
     game = room.game
     raise Errors::GAME_IN_PROGRESS if game.playing?
-    game = room.games.create! if game.ended?
+    game = room.games.create! if game.ended? || game.abandoned?
     new(game)
   end
 
