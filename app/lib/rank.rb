@@ -22,4 +22,25 @@ class Rank
 
   ALL = [ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
          EIGHT, NINE, TEN, JACK, QUEEN, KING].freeze
+
+  def ==(other)
+    other.class == Rank &&
+      name == other.name &&
+      value == other.value
+  end
+
+  def eql?(other)
+    other.class == Rank &&
+      name == other.name &&
+      value == other.value
+  end
+
+  def <=>(other)
+    other.class == Rank &&
+      value <=> other.value
+  end
+
+  def hash
+    [name, value].hash
+  end
 end

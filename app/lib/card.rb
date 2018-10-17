@@ -11,6 +11,23 @@ class Card
   end
 
   def <=>(other)
-    rank.value <=> other.rank.value
+    other.class == Card &&
+      rank.value <=> other.rank.value
+  end
+
+  def ==(other)
+    other.class == Card &&
+      rank == other.rank &&
+      suit == other.suit
+  end
+
+  def eql?(other)
+    other.class == Card &&
+      rank == other.rank &&
+      suit == other.suit
+  end
+
+  def hash
+    [rank, suit].hash
   end
 end
