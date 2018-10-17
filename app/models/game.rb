@@ -3,8 +3,9 @@ class Game < ActiveRecord::Base
     JOINING = 'joining'.freeze
     PLAYING = 'playing'.freeze
     ENDED = 'ended'.freeze
+    ABANDONED = 'abandoned'.freeze
 
-    ALL = [JOINING, PLAYING, ENDED]
+    ALL = [JOINING, PLAYING, ENDED, ABANDONED]
   end
 
   MAX_PLAYERS = 2
