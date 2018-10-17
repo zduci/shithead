@@ -12,7 +12,11 @@ module Serializers
           opponents: Serializers::Opponents.new(player.opponents).to_a,
           deck: Serializers::HiddenCards.new(player.game.deck.cards).to_h }
       else
-        {}
+        { player: nil,
+          room: nil,
+          game: nil,
+          opponents: [],
+          deck: nil }
       end
     end
 

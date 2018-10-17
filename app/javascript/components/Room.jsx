@@ -7,18 +7,22 @@ import Game from '../components/Game'
 import Lobby from '../components/Lobby'
 
 class Room extends Component {
+  redirect_to_login_if_game_abandoned () {
+    const { game, history } = this.props
+    const noGame = !game || game.status == 'abandoned' || game.status === 'ended'
+
+    noGame && history.push('/')
+  }
+
   componentDidMount () {
     const { dispatch } = this.props
 
     dispatch(loadInitialState())
-  }
-
-  redirect_to_login_if_game_abandoned (game) {
-    game && game.status == 'abandoned' && this.props.history.push('/')
+    this.redirect_to_login_if_game_abandoned()
   }
 
   componentDidUpdate () {
-    this.redirect_to_login_if_game_abandoned(this.props.game)
+    this.redirect_to_login_if_game_abandoned()
   }
 
   render () {

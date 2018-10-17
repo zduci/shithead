@@ -7,11 +7,9 @@ class GamesController < ApplicationController
     if player && (player.game.ended? || player.game.abandoned?)
       cookies.delete(:player_id)
       disconnect(player)
-      byebug
       render json: Serializers::Responses::State.new(nil).to_h
-    else
-      render json: Serializers::Responses::State.new(player).to_h
     end
+    render json: Serializers::Responses::State.new(player).to_h
   end
 
   def destroy
