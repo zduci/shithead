@@ -6,21 +6,25 @@ class Deck
   end
 
   def shuffle
-    cards.shuffle!
+    @cards = Set.new(cards.to_a.shuffle!)
     self
   end
 
   def draw(amount)
-    cards.shift(amount)
+    card_array = cards.to_a
+    cards_drawn = Set.new(card_array.shift(amount))
+    @cards = Set.new(card_array)
+    cards_drawn
   end
 
   private
 
   def build_deck
-    Rank::ALL.flat_map do |rank|
-      Suit::ALL.flat_map do |suit|
-        Card.new(rank, suit)
-      end
-    end
+    Set.new(
+      Rank::ALL.flat_map do |rank|
+        Suit::ALL.flat_map do |suit|
+          Card.new(rank, suit)
+        end
+      end)
   end
 end
