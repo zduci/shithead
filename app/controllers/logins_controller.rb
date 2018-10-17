@@ -20,14 +20,14 @@ class LoginsController < ApplicationController
   end
 
   def destroy
-    @player = Player.find_by(id: cookies.encrypted[:player_id])
-    if @player
-      ActionCable.server.remote_connections.where(current_player: @player).disconnect
-      slug = @player.room.slug
-      @player.destroy!
-      cookies.delete(@player.id)
+    player = Player.find_by(id: cookies.encrypted[:player_id])
+    if player
+      ActionCable.server.remote_connections.where(current_player: player).disconnect
+      slug = player.room.slug
+      player.destroy!
+      cookies.delete(:player_id)
 
-      broadcast_remove_player(slug, @player.id)
+      broadcast_remove_player(slug, player.id)
     end
     head :ok
   end
