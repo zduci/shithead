@@ -5,6 +5,7 @@ import api from '../utils/api'
 import HandSelect from './Player/HandSelect'
 import Hand from './Player/Hand'
 import FaceUpCards from './Player/FaceUpCards'
+import FaceDownCards from './Player/FaceDownCards'
 
 const LeaveButton = styled.button`
   display: inline-block;
@@ -27,14 +28,15 @@ const LeaveButton = styled.button`
 
 class Player extends Component {
   render () {
-    const { player } = this.props
+    const { hasSelectedHand, faceDownCards, faceUpCards } = this.props.player
     const { leaveGame } = api
 
     return (
       <Fragment>
-        { !player.hasSelectedHand && <HandSelect/> }
-        { player.hasSelectedHand && <FaceUpCards cards={player.faceUpCards} /> }
-        { player.hasSelectedHand && <Hand/> }
+        { !hasSelectedHand && <FaceDownCards cards={faceDownCards} /> }
+        { !hasSelectedHand && <HandSelect/> }
+        { hasSelectedHand && <FaceUpCards cards={faceUpCards} /> }
+        { hasSelectedHand && <Hand/> }
         <LeaveButton onClick={leaveGame}>Leave</LeaveButton>
       </Fragment>
     )
