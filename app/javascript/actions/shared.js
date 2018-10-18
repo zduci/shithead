@@ -31,17 +31,19 @@ export function receiveInitialState (room, player, opponents, game) {
   }
 }
 
-export function loadInitialState () {
+export function loadInitialState (returnToLoginUnlessGame) {
   return dispatch => {
     dispatch(showLoading())
     return api.getGame()
       .then(response => {
         const { room, player, opponents, game } = response.data.data
 
-        dispatch(receiveInitialState(room, player, opponents, game))
-        roomChannel.subscribe(action => dispatch(action))
-        playerChannel.subscribe(action => dispatch(action))
-        dispatch(hideLoading())
+        if (!returnToLoginUnlessGame(game)) {
+          dispatch(receiveInitialState(room, player, opponents, game))
+          roomChannel.subscribe(action => dispatch(action))
+          playerChannel.subscribe(action => dispatch(action))
+          dispatch(hideLoading())
+        }
       })
   }
 }
