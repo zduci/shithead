@@ -3,6 +3,7 @@ class SelectHand
 
   def initialize(player)
     @player = player
+    @cards = player.hand.cards + player.face_up_cards
   end
 
   def select(ids)
@@ -17,7 +18,7 @@ class SelectHand
 
   private
 
-  attr_reader :player
+  attr_reader :player, :cards
 
   def find_selected_cards(ids)
     find_cards { |id| ids.include?(id) }
@@ -28,8 +29,6 @@ class SelectHand
   end
 
   def find_cards
-    (player.hand.cards + player.face_up_cards).select do |card|
-      yield card.id
-    end
+    Set.new(cards.select { |card| yield card.id })
   end
 end
