@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import api from '../utils/api'
 import HandSelect from './Player/HandSelect'
 import Hand from './Player/Hand'
+import FaceUpCards from './Player/FaceUpCards'
 
 const LeaveButton = styled.button`
   display: inline-block;
@@ -32,6 +33,7 @@ class Player extends Component {
     return (
       <Fragment>
         { !player.hasSelectedHand && <HandSelect/> }
+        { player.hasSelectedHand && <FaceUpCards cards={player.faceUpCards} /> }
         { player.hasSelectedHand && <Hand/> }
         <LeaveButton onClick={leaveGame}>Leave</LeaveButton>
       </Fragment>
