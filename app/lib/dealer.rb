@@ -18,14 +18,13 @@ class Dealer
   attr_reader :game
 
   def shuffle_new_deck
-    deck = Deck.new
-    deck.shuffle
+    deck = Deck.build.shuffle
   end
 
   def deal_to(player, deck)
-    player.face_down_cards = deck.draw(FACE_DOWN_SIZE)
-    player.face_up_cards = deck.draw(FACE_UP_SIZE)
-    player.hand = Hand.new(deck.draw(HAND_SIZE))
+    player.face_down_cards = deck.draw!(FACE_DOWN_SIZE)
+    player.face_up_cards = deck.draw!(FACE_UP_SIZE)
+    player.hand = Hand.new(deck.draw!(HAND_SIZE))
     player.save!
   end
 end
