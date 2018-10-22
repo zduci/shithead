@@ -4,15 +4,13 @@ import Hand from './OpponentTop/Hand'
 import FaceUpCards from './OpponentTop/FaceUpCards'
 import FaceDownCards from './OpponentTop/FaceDownCards'
 
-function OpponentTop ({ opponent }) {
-  const { hasSelectedHand, faceUpCards, faceDownCards, hand } = opponent
-
+function OpponentTop ({ hasSelectedHand, faceUpCards, faceDownCards, hand }) {
   return (
     <div>
       { !hasSelectedHand && <HandSelect faceUpCards={faceUpCards}
                                         hand={hand} /> }
       { !hasSelectedHand && <FaceDownCards cards={faceDownCards} /> }
-      { hasSelectedHand && <Hand hand={hand} /> }
+      { hasSelectedHand && <Hand number={hand.number} /> }
       { hasSelectedHand && <FaceUpCards cards={faceUpCards} /> }
     </div>
   )

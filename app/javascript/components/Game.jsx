@@ -18,7 +18,7 @@ class Game extends Component {
 
     return (
       <GameWrapper>
-        <OpponentTop opponent={opponentTop} />
+        <OpponentTop {...opponentTop} />
         <Deck {...deck} />
         <Pile {...pile} />
         <Player/>

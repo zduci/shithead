@@ -17,17 +17,14 @@ function renderCardBack (id) {
   )
 }
 
-class Hand extends Component {
-  render () {
-    const { hand } = this.props
-    const handCards = range(hand.number)
+function Hand ({ number }) {
+  const handCards = range(number)
 
-    return (
-      <Wrapper>
-        { handCards.map(index => renderCardBack(index)) }
-      </Wrapper>
-    )
-  }
+  return (
+    <Wrapper>
+      { handCards.map(index => renderCardBack(index)) }
+    </Wrapper>
+  )
 }
 
 export default Hand

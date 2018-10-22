@@ -14,9 +14,7 @@ function renderCard (card) {
   )
 }
 
-function FaceUpCards (props) {
-  const { cards } = props
-
+function FaceUpCards ({ cards }) {
   return (
     <Wrapper>
       { cards.reverse().map(card => renderCard(card)) }

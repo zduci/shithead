@@ -64,12 +64,12 @@ class HandSelect extends Component {
   }
 
   render () {
-    const { player } = this.props
+    const { hand, faceUpCards } = this.props
 
     return (
       <Wrapper>
-        { player.hand.map(card => this.renderCard(card)) }
-        { player.faceUpCards.map(card => this.renderCard(card)) }
+        { hand.map(card => this.renderCard(card)) }
+        { faceUpCards.map(card => this.renderCard(card)) }
         <SelectHandButton disabled={!this.canSubmit()}
                           onClick={this.submitHand} >
          Select
@@ -88,6 +88,6 @@ class HandSelect extends Component {
   }
 }
 
-const mapStateToProps = ({ player }) => ({ player })
+const mapStateToProps = ({ player }) => ({ ...player })
 
 export default connect(mapStateToProps)(HandSelect)

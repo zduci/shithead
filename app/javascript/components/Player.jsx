@@ -28,7 +28,7 @@ const LeaveButton = styled.button`
 
 class Player extends Component {
   render () {
-    const { hasSelectedHand, faceDownCards, faceUpCards } = this.props.player
+    const { hasSelectedHand, faceDownCards, faceUpCards } = this.props
     const { leaveGame } = api
 
     return (
@@ -43,6 +43,6 @@ class Player extends Component {
   }
 }
 
-const mapStateToProps = ({ player }) => ({ player })
+const mapStateToProps = ({ player }) => ({ ...player })
 
 export default connect(mapStateToProps)(Player)
