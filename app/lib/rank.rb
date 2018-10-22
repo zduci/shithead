@@ -6,7 +6,6 @@ class Rank
     @value = value
   end
 
-  ACE = new('A', 1)
   TWO = new('2', 2)
   THREE = new('3', 3)
   FOUR = new('4', 4)
@@ -19,6 +18,7 @@ class Rank
   JACK = new('J', 11)
   QUEEN = new('Q', 12)
   KING = new('K', 13)
+  ACE = new('A', 14)
 
   ALL = [ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
          EIGHT, NINE, TEN, JACK, QUEEN, KING].freeze
