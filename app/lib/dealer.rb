@@ -10,7 +10,7 @@ class Dealer
   def deal
     deck = shuffle_new_deck
     game.players.map { |player| deal_to(player, deck) }
-    game.update!(deck: deck)
+    game.update!(deck: deck, player_turn: game.players.first)
   end
 
   private
