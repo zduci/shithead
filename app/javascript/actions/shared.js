@@ -21,14 +21,8 @@ export function authenticate (navigateToRoom) {
   }
 }
 
-export function receiveInitialState (room, player, opponents, game) {
-  return {
-    type: RECEIVE_INITIAL_STATE,
-    room: room,
-    player: player,
-    opponents: opponents,
-    game: game
-  }
+export function receiveInitialState (state) {
+  return { ...state, type: RECEIVE_INITIAL_STATE }
 }
 
 export function loadInitialState (returnToLoginUnlessGame) {
@@ -36,10 +30,11 @@ export function loadInitialState (returnToLoginUnlessGame) {
     dispatch(showLoading())
     return api.getGame()
       .then(response => {
-        const { room, player, opponents, game } = response.data.data
+        const state = response.data.data
+        const { game } = state
 
         if (!returnToLoginUnlessGame(game)) {
-          dispatch(receiveInitialState(room, player, opponents, game))
+          dispatch(receiveInitialState(state))
           roomChannel.subscribe(action => dispatch(action))
           playerChannel.subscribe(action => dispatch(action))
           dispatch(hideLoading())
@@ -54,7 +49,13 @@ export function leaveRoom (navigateToLogin) {
       .then(response => {
         navigateToLogin()
 
-        dispatch(receiveInitialState(null, null, [], null))
+        dispatch(receiveInitialState({
+          room: null,
+          player: null,
+          opponents: [],
+          game: null,
+          deck: null
+        }))
       })
   }
 }

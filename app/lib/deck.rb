@@ -11,7 +11,7 @@ class Deck
   attr_reader :cards
 
   def initialize(cards = [])
-    @cards = Set.new(cards)
+    @cards = Set.new(cards.to_a)
   end
 
   def shuffle

@@ -9,12 +9,20 @@ const CardWrapper = styled.div`
   color: grey;
   border-radius: 4px;
   border-color: grey;
+  max-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
-export default function CardBack () {
+function Deck ({ deck }) {
+  const { number } = deck
+
   return (
     <CardWrapper>
-      <p>Card Back</p>
+      <p>{ number }</p>
     </CardWrapper>
   )
 }
+
+export default Deck
