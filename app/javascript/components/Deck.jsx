@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const CardWrapper = styled.div`
+const DeckWrapper = styled.div`
   padding: 10px;
   margin: 6px;
   cursor: pointer;
@@ -15,13 +15,11 @@ const CardWrapper = styled.div`
   justify-content: center;
 `
 
-function Deck ({ deck }) {
-  const { number } = deck
-
+function Deck ({ number }) {
   return (
-    <CardWrapper>
-      <p>{ number }</p>
-    </CardWrapper>
+    <DeckWrapper>
+      <p>Deck { number } cards</p>
+    </DeckWrapper>
   )
 }
 

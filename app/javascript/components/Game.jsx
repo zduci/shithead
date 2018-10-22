@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Player from './Player'
 import OpponentTop from './OpponentTop'
 import Deck from './Deck'
+import Pile from './Pile'
 
 const GameWrapper = styled.div`
   display: flex;
@@ -12,19 +13,20 @@ const GameWrapper = styled.div`
 
 class Game extends Component {
   render () {
-    const { player, opponents, deck } = this.props
+    const { player, opponents, deck, pile } = this.props
     const opponentTop = opponents[0]
 
     return (
       <GameWrapper>
         <OpponentTop opponent={opponentTop} />
-        <Deck deck={deck} />
+        <Deck {...deck} />
+        <Pile {...pile} />
         <Player/>
       </GameWrapper>
     )
   }
 }
 
-const mapStateToProps = ({ player, opponents, deck }) => ({ player, opponents, deck })
+const mapStateToProps = ({ player, opponents, deck, pile }) => ({ player, opponents, deck, pile })
 
 export default connect(mapStateToProps)(Game)
