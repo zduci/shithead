@@ -1,7 +1,6 @@
-# For some reason these don't get loaded before this model so they need to be
-# referenced in order for the card serialization to work
-Card
+# Serialized fields break unless these classes are loaded
 Rank
+Card
 
 class Player < ActiveRecord::Base
   belongs_to :game
