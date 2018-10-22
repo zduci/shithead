@@ -16,4 +16,5 @@ class Game < ActiveRecord::Base
   has_many :players, dependent: :destroy
 
   serialize :deck, Deck
+  serialize :pile, Pile
 end
