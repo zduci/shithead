@@ -10,13 +10,15 @@ module Serializers
           room: Serializers::Room.new(player.room).to_h,
           game: Serializers::Game.new(player.game).to_h,
           opponents: Serializers::Opponents.new(player.opponents).to_a,
-          deck: Serializers::HiddenCards.new(player.game.deck.cards).to_h }
+          deck: Serializers::HiddenCards.new(player.game.deck.cards).to_h,
+          pile: Serializers::Pile.new(player.game.pile).to_h }
       else
         { player: nil,
           room: nil,
           game: nil,
           opponents: [],
-          deck: nil }
+          deck: nil,
+          pile: nil }
       end
     end
 

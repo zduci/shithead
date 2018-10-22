@@ -54,7 +54,8 @@ export function leaveRoom (navigateToLogin) {
           player: null,
           opponents: [],
           game: null,
-          deck: null
+          deck: null,
+          pile: null
         }))
       })
   }
