@@ -1,4 +1,6 @@
 class Rank
+  include Comparable
+
   attr_reader :name, :value
 
   def initialize(name, value)

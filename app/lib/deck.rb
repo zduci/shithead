@@ -24,4 +24,12 @@ class Deck
     @cards = Set.new(card_array)
     cards_drawn
   end
+
+  def size
+    cards.size
+  end
+
+  def empty?
+    cards.empty?
+  end
 end

@@ -1,16 +1,18 @@
 class Pile
   attr_reader :cards
 
+  delegate :size, :empty?, to: :cards
+
   def initialize(cards = [])
     @cards = Set.new(cards.to_a)
   end
 
   def +(new_cards)
-    Pile.new(cards.to_a + new_cards.to_a)
+    Pile.new(new_cards.to_a + cards.to_a)
   end
 
   def top_cards
-    return [] unless cards.first
+    return Set.new unless cards.first
     top_cards = [cards.first]
     rank = top_cards.first.rank
     rank_matches = true
@@ -20,10 +22,6 @@ class Pile
         top_cards << next_card
       end
     end
-    top_cards
-  end
-
-  def size
-    cards.size
+    Set.new(top_cards)
   end
 end
