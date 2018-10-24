@@ -3,9 +3,9 @@ class PlayerBroadcast
     @player = player
   end
   
-  def self.receiveInitialState(players)
+  def self.receive_initial_state(players)
     players.each do |player|
-      new(player).receiveInitialState
+      new(player).receive_initial_state
     end
   end
 
@@ -15,7 +15,7 @@ class PlayerBroadcast
     end
   end
 
-  def receiveInitialState
+  def receive_initial_state
     broadcast_action(
       Serializers::Actions::ReceiveInitialState.new(player).to_h)
   end
