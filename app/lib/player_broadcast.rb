@@ -25,6 +25,11 @@ class PlayerBroadcast
       Serializers::Actions::GameAbandoned.new.to_h)
   end
 
+  def player_made_play
+    broadcast_action(
+      Serializers::Actions::PlayerMadePlay.new(player).to_h)
+  end
+
   private
 
   attr_reader :player

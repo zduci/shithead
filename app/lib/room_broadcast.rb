@@ -29,6 +29,11 @@ class RoomBroadcast
       faceUpCards: Serializers::Cards.new(opponent.face_up_cards).to_a)
   end
 
+  def opponent_made_play(opponent)
+    broadcast_action(
+      Serializers::Actions::OpponentMadePlay.new(opponent).to_h)
+  end
+
   def rebroadcast(data)
     broadcast(data)
   end

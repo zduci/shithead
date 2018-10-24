@@ -9,25 +9,88 @@ const Wrapper = styled.div`
   flex-flow: row nowrap;
 `
 
+const MakePlayButton = styled.button`
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: ${props => props.disabled ? 'grey' : 'green'};
+  border-color: ${props => props.disabled ? 'grey' : 'green'};
+  width: 70px;
+`
+
 class Hand extends Component {
+  state = {
+    selectedCards: []
+  }
+
+  canMakePlay () {
+    return this.state.selectedCards.length > 0
+  }
+
+  possibleSelections () {
+    const { availablePlays } = this.props
+    const { selectedCards } = this.state
+    const nextPlays = availablePlays[selectedCards.length + 1]
+    if (nextPlays) {
+      return nextPlays.map(cards => cards.filter(card => !selectedCards.includes(card.id)))
+                      .filter(cards => cards.length === 1)
+                      .map(cards => cards[0].id)
+    } else {
+      return []
+    }
+  }
+
+  toggleSelectCard = (id, isSelected) => {
+    this.setState(({ selectedCards }) => {
+      if (isSelected) {
+        return { selectedCards: selectedCards.filter(selectedCardId => selectedCardId !== id) }
+      } else {
+        return { selectedCards: [ ...selectedCards, id ] }
+      }
+    })
+  }
+
+  makePlay = () => {
+    const { selectedCards } = this.state
+    playerChannel.makePlay(selectedCards)
+  }
+
   render () {
-    const { cards } = this.props
+    const { cards, availablePlays, isTurn } = this.props
+    const possibleSelections = this.possibleSelections()
 
     return (
       <Wrapper>
-        { cards.map(card => this.renderCard(card)) }
+        { cards.map(card => this.renderCard(card, isTurn, possibleSelections)) }
+        { isTurn === true && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
       </Wrapper>
     )
   }
 
-  renderCard (card) {
+  renderCard (card, isTurn, possibleSelections) {
+    const isSelected = this.state.selectedCards.includes(card.id)
+    const canToggle = isTurn && (isSelected || possibleSelections.includes(card.id))
+    const onClick = canToggle ? this.toggleSelectCard.bind(this, card.id, isSelected) : undefined 
+
     return (
       <Card key={card.id}
-            card={card} />
+            card={card}
+            isSelected={isSelected}
+            onClick={onClick} />
     )
   }
 }
 
-const mapStateToProps = ({ player }) => ({ cards: player.hand })
+const mapStateToProps = ({ player, game }) => ({ cards: player.hand, availablePlays: player.availablePlays, isTurn: game.playerTurnId === player.id })
 
 export default connect(mapStateToProps)(Hand)

@@ -14,6 +14,11 @@ const playerChannel = {
   selectHand (cards) {
     App.player.perform('select_hand', {
       cards: cards })
+  },
+
+  makePlay (cards) {
+    App.player.perform('make_play', {
+      cards: cards })
   }
 }
 

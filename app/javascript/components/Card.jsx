@@ -12,7 +12,6 @@ const CardWrapper = styled.div`
   border-color: ${props => props.isSelected && 'green'};
 `
 
-
 export default function Card ({ card, onClick, isSelected }) {
   const { id, rank, suit } = card
 

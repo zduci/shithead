@@ -13,7 +13,7 @@ module Serializers
         faceDownCards: HiddenCards.new(player.face_down_cards).to_h,
         faceUpCards: Cards.new(player.face_up_cards).to_a,
         hasSelectedHand: player.has_selected_hand,
-        available_plays: Serializers::AvailablePlays.new(available_plays).to_h }
+        availablePlays: Serializers::AvailablePlays.new(available_plays).to_h }
     end
 
     private
