@@ -1,4 +1,4 @@
-import { RECEIVE_INITIAL_STATE } from '../actions/shared'
+import { RECEIVE_INITIAL_STATE, OPPONENT_MADE_PLAY } from '../actions/shared'
 import { ADD_OPPONENT, REMOVE_OPPONENT,
          SET_OPPONENT_READY, SET_OPPONENT_HAND} from '../actions/opponents'
 
@@ -24,6 +24,8 @@ function setOpponentHand (state, action) {
 export function opponents (state = [], action) {
   switch (action.type) {
     case RECEIVE_INITIAL_STATE:
+      return action.opponents
+    case OPPONENT_MADE_PLAY:
       return action.opponents
     case ADD_OPPONENT:
       return [ ...state, action.opponent ]

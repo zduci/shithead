@@ -5,6 +5,8 @@ import playerChannel from '../utils/playerChannel.js'
 
 export const LOAD_INITIAL_STATE = 'LOAD_INITIAL_STATE'
 export const RECEIVE_INITIAL_STATE = 'RECEIVE_INITIAL_STATE'
+export const PLAYER_MADE_PLAY = 'PLAYER_MADE_PLAY'
+export const OPPONENT_MADE_PLAY = 'OPPONENT_MADE_PLAY'
 
 export function authenticate (navigateToRoom) {
   return (dispatch) => {
