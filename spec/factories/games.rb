@@ -7,6 +7,7 @@ FactoryBot.define do
     end
 
     trait :playing do
+      deck { Deck.build }
       status { Game::Status::PLAYING }
     end
 
