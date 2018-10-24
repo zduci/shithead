@@ -26,7 +26,7 @@ export function opponents (state = [], action) {
     case RECEIVE_INITIAL_STATE:
       return action.opponents
     case OPPONENT_MADE_PLAY:
-      return action.opponents
+      return state.map(opponent => opponent.id === action.opponent.id ? action.opponent : opponent)
     case ADD_OPPONENT:
       return [ ...state, action.opponent ]
     case REMOVE_OPPONENT:

@@ -63,6 +63,7 @@ class Hand extends Component {
   makePlay = () => {
     const { selectedCards } = this.state
     playerChannel.makePlay(selectedCards)
+    this.setState({ selectedCards: [] })
   }
 
   render () {

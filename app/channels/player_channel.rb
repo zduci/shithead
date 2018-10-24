@@ -17,8 +17,7 @@ class PlayerChannel < ApplicationCable::Channel
     current_player.reload
     MakePlay.new(current_player).play(card_ids)
     PlayerBroadcast.new(current_player).player_made_play
-    RoomBroadcast.build(current_player.room.slug)
-                 .opponent_made_play(current_player)
+    PlayerBroadcast.opponent_made_play(current_player)
   end
 
   def unsubscribed

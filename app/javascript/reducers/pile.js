@@ -8,7 +8,7 @@ export function pile (state = null, action) {
     case PLAYER_MADE_PLAY:
       return action.pile
     case OPPONENT_MADE_PLAY:
-      return action.deck
+      return action.pile
     default:
       return state
   }
