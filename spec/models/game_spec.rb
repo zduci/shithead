@@ -5,6 +5,7 @@ describe Game do
     it { is_expected.to belong_to(:room) }
     it { is_expected.to have_many(:players).dependent(:destroy) }
     it { is_expected.to belong_to(:player_turn) }
+    it { is_expected.to belong_to(:winner) }
   end
 
   it 'sets the status to joining on create' do

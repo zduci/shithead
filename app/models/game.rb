@@ -19,6 +19,7 @@ class Game < ActiveRecord::Base
   belongs_to :room
   has_many :players, dependent: :destroy
   belongs_to :player_turn, class_name: 'Player', optional: true
+  belongs_to :winner, class_name: 'Player', optional: true
 
   serialize :deck, Deck
   serialize :pile, Pile

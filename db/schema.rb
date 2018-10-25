@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_22_204006) do
+ActiveRecord::Schema.define(version: 2018_10_25_145258) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status", default: 0
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_10_22_204006) do
     t.text "deck"
     t.text "pile"
     t.integer "player_turn_id"
+    t.integer "winner_id"
   end
 
   create_table "players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
