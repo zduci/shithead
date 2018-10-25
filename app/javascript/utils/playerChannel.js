@@ -19,6 +19,10 @@ const playerChannel = {
   makePlay (cards) {
     App.player.perform('make_play', {
       cards: cards })
+  },
+
+  pickUpPile () {
+    App.player.perform('pick_up_pile')
   }
 }
 

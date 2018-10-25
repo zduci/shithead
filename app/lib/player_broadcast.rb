@@ -21,6 +21,12 @@ class PlayerBroadcast
     end
   end
 
+  def self.opponent_picked_up_pile(opponent)
+    opponent.opponents.each do |player|
+      new(player).opponent_picked_up_pile(opponent)
+    end
+  end
+
   def receive_initial_state
     broadcast_action(
       Serializers::Actions::ReceiveInitialState.new(player).to_h)
@@ -39,6 +45,16 @@ class PlayerBroadcast
   def opponent_made_play(opponent)
     broadcast_action(
       Serializers::Actions::OpponentMadePlay.new(player, opponent).to_h)
+  end
+
+  def player_picked_up_pile
+    broadcast_action(
+      Serializers::Actions::PlayerPickedUpPile.new(player).to_h)
+  end
+
+  def opponent_picked_up_pile(opponent)
+    broadcast_action(
+      Serializers::Actions::OpponentPickedUpPile.new(player, opponent).to_h)
   end
 
   private

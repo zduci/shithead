@@ -20,6 +20,13 @@ class PlayerChannel < ApplicationCable::Channel
     PlayerBroadcast.opponent_made_play(current_player)
   end
 
+  def pick_up_pile
+    current_player.reload
+    PickUpPile.new(current_player).pick_up
+    PlayerBroadcast.new(current_player).player_picked_up_pile
+    PlayerBroadcast.opponent_picked_up_pile(current_player)
+  end
+
   def unsubscribed
   end
 

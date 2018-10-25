@@ -28,6 +28,9 @@ const MakePlayButton = styled.button`
   width: 70px;
 `
 
+const PickUpPileButton = styled(MakePlayButton)`
+`
+
 class Hand extends Component {
   state = {
     selectedCards: []
@@ -66,14 +69,22 @@ class Hand extends Component {
     this.setState({ selectedCards: [] })
   }
 
+  pickUpPile = () => {
+    playerChannel.pickUpPile()
+  }
+
   render () {
     const { cards, availablePlays, isTurn } = this.props
+    const { selectedCards } = this.state
     const possibleSelections = this.possibleSelections()
+    const canPlaySomething = possibleSelections.length > 0 ||
+                             selectedCards.length > 0
 
     return (
       <Wrapper>
         { cards.map(card => this.renderCard(card, isTurn, possibleSelections)) }
-        { isTurn === true && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
+        { isTurn === true && canPlaySomething && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
+        { isTurn === true && !canPlaySomething && <PickUpPileButton onClick={this.pickUpPile}>Pick up</PickUpPileButton> }
       </Wrapper>
     )
   }

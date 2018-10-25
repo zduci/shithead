@@ -7,6 +7,8 @@ export const LOAD_INITIAL_STATE = 'LOAD_INITIAL_STATE'
 export const RECEIVE_INITIAL_STATE = 'RECEIVE_INITIAL_STATE'
 export const PLAYER_MADE_PLAY = 'PLAYER_MADE_PLAY'
 export const OPPONENT_MADE_PLAY = 'OPPONENT_MADE_PLAY'
+export const PLAYER_PICKED_UP_PILE = 'PLAYER_PICKED_UP_PILE'
+export const OPPONENT_PICKED_UP_PILE = 'OPPONENT_PICKED_UP_PILE'
 
 export function authenticate (navigateToRoom) {
   return (dispatch) => {
