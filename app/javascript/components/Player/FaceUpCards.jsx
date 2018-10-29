@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Card from '../Card'
@@ -96,26 +96,71 @@ class FaceUpCards extends Component {
     )
   }
 
-  render () {
-    const { cards, isTurn, handHasCards, faceDownCardsCount } = this.props
-    const visibleFaceDownCards = faceDownCardsCount - cards.length
-    const possibleSelections = this.possibleSelections()
-    const canPlaySomething = possibleSelections.length > 0 || this.state.selectedCard
+  renderFaceUpCards (possibleSelections) {
+    const { cards } = this.props
+
+    return (
+      <Fragment>
+        { cards.map(card => this.renderCard(card, possibleSelections)) }
+      </Fragment>
+    )
+  }
+
+  renderFaceDownCards () {
+    const { cards, faceDownCardsCount } = this.props
     const showFaceDownCards = faceDownCardsCount > 0
+    const visibleFaceDownCards = faceDownCardsCount - cards.length
+
+    return (
+      <Fragment>
+        { showFaceDownCards && this.range(visibleFaceDownCards).map(index => this.renderCardBack(index)) }
+      </Fragment>
+    )
+  }
+
+  renderMakePlayButton (canPlaySomething) {
+    const { isTurn, handHasCards } = this.props
     const showMakePlay = isTurn === true && !handHasCards && canPlaySomething
+
+    return (
+      <Fragment>
+        { showMakePlay && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
+      </Fragment>
+    )
+  }
+
+  renderPickUpButton (canPlaySomething) {
+    const { isTurn, handHasCards } = this.props
     const showPickUp = isTurn === true && !handHasCards && !canPlaySomething
 
     return (
-      <Wrapper>
-        { cards.map(card => this.renderCard(card, possibleSelections)) }
-        { showFaceDownCards && this.range(visibleFaceDownCards).map(index => this.renderCardBack(index)) }
-        { showMakePlay && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
+      <Fragment>
         { showPickUp && <PickUpPileButton onClick={this.pickUpPile}>Pick up</PickUpPileButton> }
+      </Fragment>
+    )
+  }
+
+  render () {
+    const possibleSelections = this.possibleSelections()
+    const canPlaySomething = possibleSelections.length > 0 || this.state.selectedCard
+
+    return (
+      <Wrapper>
+        { this.renderFaceUpCards(possibleSelections) }
+        { this.renderFaceDownCards() }
+        { this.renderMakePlayButton(canPlaySomething) }
+        { this.renderPickUpButton(canPlaySomething) }
       </Wrapper>
     )
   }
 }
 
-const mapStateToProps = ({ player, game }) => ({ cards: player.faceUpCards, availablePlays: player.availablePlays, isTurn: game.playerTurnId === player.id, handHasCards: player.hand.length > 0, faceDownCardsCount: player.faceDownCards.number })
+const mapStateToProps = ({ player, game }) => ({
+  cards: player.faceUpCards,
+  availablePlays: player.availablePlays,
+  isTurn: game.playerTurnId === player.id,
+  handHasCards: player.hand.length > 0,
+  faceDownCardsCount: player.faceDownCards.number
+})
 
 export default connect(mapStateToProps)(FaceUpCards)
