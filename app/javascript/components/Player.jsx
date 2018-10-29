@@ -27,16 +27,49 @@ const LeaveButton = styled.button`
 `
 
 class Player extends Component {
+  renderFaceDownCards (hasSelectedHand, faceDownCards) {
+    return (
+      <Fragment>
+        { !hasSelectedHand && <FaceDownCards cards={faceDownCards} /> }
+      </Fragment>
+    )
+  }
+
+  renderHandSelect (hasSelectedHand) {
+    return (
+      <Fragment>
+        { !hasSelectedHand && <HandSelect/> }
+      </Fragment>
+    )
+  }
+
+  renderFaceUpCards (hasSelectedHand, faceUpCards, handHasCards) {
+    return (
+      <Fragment>
+        { hasSelectedHand && <FaceUpCards canPlayCards={!handHasCards} cards={faceUpCards} /> }
+      </Fragment>
+    )
+  }
+
+  renderHand (hasSelectedHand, handHasCards) {
+    return (
+      <Fragment>
+        { hasSelectedHand && handHasCards && <Hand/> }
+      </Fragment>
+    )
+  }
+
   render () {
-    const { hasSelectedHand, faceDownCards, faceUpCards } = this.props
+    const { hasSelectedHand, faceDownCards, faceUpCards, hand } = this.props
+    const handHasCards = hand.length > 0
     const { leaveGame } = api
 
     return (
       <Fragment>
-        { !hasSelectedHand && <FaceDownCards cards={faceDownCards} /> }
-        { !hasSelectedHand && <HandSelect/> }
-        { hasSelectedHand && <FaceUpCards cards={faceUpCards} /> }
-        { hasSelectedHand && <Hand/> }
+        { this.renderFaceDownCards(hasSelectedHand, faceDownCards) }
+        { this.renderFaceUpCards(hasSelectedHand, faceUpCards, handHasCards) }
+        { this.renderHandSelect(hasSelectedHand) }
+        { this.renderHand(hasSelectedHand, handHasCards) }
         <LeaveButton onClick={leaveGame}>Leave</LeaveButton>
       </Fragment>
     )
