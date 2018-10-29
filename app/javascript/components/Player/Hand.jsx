@@ -92,7 +92,8 @@ class Hand extends Component {
   renderCard (card, isTurn, possibleSelections) {
     const isSelected = this.state.selectedCards.includes(card.id)
     const canToggle = isTurn && (isSelected || possibleSelections.includes(card.id))
-    const onClick = canToggle ? this.toggleSelectCard.bind(this, card.id, isSelected) : undefined 
+    const onClick = canToggle ? this.toggleSelectCard.bind(this, card.id, isSelected)
+                              : undefined
 
     return (
       <Card key={card.id}

@@ -46,7 +46,7 @@ class Player extends Component {
   renderFaceUpCards (hasSelectedHand, faceUpCards, handHasCards) {
     return (
       <Fragment>
-        { hasSelectedHand && <FaceUpCards canPlayCards={!handHasCards} cards={faceUpCards} /> }
+        { hasSelectedHand && faceUpCards.length > 0 && <FaceUpCards canPlayCards={!handHasCards} cards={faceUpCards} /> }
       </Fragment>
     )
   }

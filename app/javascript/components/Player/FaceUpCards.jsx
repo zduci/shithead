@@ -1,27 +1,121 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Card from '../Card'
+import CardBack from '../CardBack'
+import playerChannel from '../../utils/playerChannel'
 
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
 `
 
-function renderCard (card) {
-  return (
-    <Card key={card.id}
-          card={card} />
-  )
+const MakePlayButton = styled.button`
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: ${props => props.disabled ? 'grey' : 'green'};
+  border-color: ${props => props.disabled ? 'grey' : 'green'};
+  width: 70px;
+`
+
+const PickUpPileButton = styled(MakePlayButton)`
+`
+
+const FACE_DOWN_CARDS = 3
+
+class FaceUpCards extends Component {
+  state = {
+    selectedCard: null
+  }
+
+  canMakePlay () {
+    return this.state.selectedCard
+  }
+
+  possibleSelections () {
+    const availablePlays = this.props.availablePlays[1] || []
+    return availablePlays.map(([ card ]) => card.id)
+  }
+
+  toggleSelectCard = (id) => {
+    this.setState(({ selectedCard }) => {
+      if (selectedCard === id) {
+        return { selectedCard: null }
+      } else {
+        return { selectedCard: id }
+      }
+    })
+  }
+
+  makePlay = () => {
+    const { selectedCard } = this.state
+    playerChannel.makePlay([selectedCard])
+    this.setState({ selectedCard: null })
+  }
+
+  pickUpPile = () => {
+    playerChannel.pickUpPile()
+  }
+
+  renderCard (card, possibleSelections) {
+    const { handHasCards, isTurn } = this.props
+    const canToggle = isTurn && !handHasCards && possibleSelections.includes(card.id)
+    const onClick = canToggle ? this.toggleSelectCard.bind(this, card.id)
+                              : undefined
+    const isSelected = this.state.selectedCard === card.id
+
+    return (
+      <Card key={card.id}
+            card={card}
+            isSelected={isSelected}
+            onClick={onClick} />
+    )
+  }
+
+  range (n) {
+    return [...Array(n).keys()]
+  }
+
+  renderCardBack (index) {
+    const { selectedCard } = this.state
+
+    return (
+      <CardBack key={index}
+                index={index} />
+    )
+  }
+
+  render () {
+    const { cards, isTurn, handHasCards, faceDownCardsCount } = this.props
+    const visibleFaceDownCards = faceDownCardsCount - cards.length
+    const possibleSelections = this.possibleSelections()
+    const canPlaySomething = possibleSelections.length > 0 || this.state.selectedCard
+    const showFaceDownCards = faceDownCardsCount > 0
+    const showMakePlay = isTurn === true && !handHasCards && canPlaySomething
+    const showPickUp = isTurn === true && !handHasCards && !canPlaySomething
+
+    return (
+      <Wrapper>
+        { cards.map(card => this.renderCard(card, possibleSelections)) }
+        { showFaceDownCards && this.range(visibleFaceDownCards).map(index => this.renderCardBack(index)) }
+        { showMakePlay && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
+        { showPickUp && <PickUpPileButton onClick={this.pickUpPile}>Pick up</PickUpPileButton> }
+      </Wrapper>
+    )
+  }
 }
 
-function FaceUpCards (props) {
-  const { cards } = props
+const mapStateToProps = ({ player, game }) => ({ cards: player.faceUpCards, availablePlays: player.availablePlays, isTurn: game.playerTurnId === player.id, handHasCards: player.hand.length > 0, faceDownCardsCount: player.faceDownCards.number })
 
-  return (
-    <Wrapper>
-      { cards.map(card => renderCard(card)) }
-    </Wrapper>
-  )
-}
-
-export default FaceUpCards
+export default connect(mapStateToProps)(FaceUpCards)
