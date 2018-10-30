@@ -1,5 +1,5 @@
 import { RECEIVE_INITIAL_STATE, OPPONENT_MADE_PLAY,
-         OPPONENT_PICKED_UP_PILE } from '../actions/shared'
+         OPPONENT_PICKED_UP_PILE, OPPONENT_FLIPPED_CARD } from '../actions/shared'
 import { ADD_OPPONENT, REMOVE_OPPONENT,
          SET_OPPONENT_READY, SET_OPPONENT_HAND} from '../actions/opponents'
 
@@ -29,6 +29,8 @@ export function opponents (state = [], action) {
     case OPPONENT_MADE_PLAY:
       return state.map(opponent => opponent.id === action.opponent.id ? action.opponent : opponent)
     case OPPONENT_PICKED_UP_PILE:
+      return state.map(opponent => opponent.id === action.opponent.id ? action.opponent : opponent)
+    case OPPONENT_FLIPPED_CARD:
       return state.map(opponent => opponent.id === action.opponent.id ? action.opponent : opponent)
     case ADD_OPPONENT:
       return [ ...state, action.opponent ]

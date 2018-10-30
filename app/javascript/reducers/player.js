@@ -1,5 +1,6 @@
 import { RECEIVE_INITIAL_STATE, PLAYER_MADE_PLAY, OPPONENT_MADE_PLAY,
-         PLAYER_PICKED_UP_PILE, OPPONENT_PICKED_UP_PILE } from '../actions/shared'
+         PLAYER_PICKED_UP_PILE, OPPONENT_PICKED_UP_PILE,
+         PLAYER_FLIPPED_CARD } from '../actions/shared'
 import { SET_PLAYER_READY } from '../actions/player'
 
 export function player (state = null, action) {
@@ -13,6 +14,8 @@ export function player (state = null, action) {
     case PLAYER_PICKED_UP_PILE:
       return action.player
     case OPPONENT_PICKED_UP_PILE:
+      return action.player
+    case PLAYER_FLIPPED_CARD:
       return action.player
     case SET_PLAYER_READY:
       return { ...state, isReady: true }

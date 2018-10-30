@@ -9,11 +9,13 @@ const CardWrapper = styled.div`
   color: grey;
   border-radius: 4px;
   border-color: grey;
+  border-color: ${props => props.isSelected && 'green'};
 `
 
-export default function CardBack () {
+export default function CardBack ({ onClick, isSelected }) {
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick}
+                 isSelected={isSelected} >
       <p>Card Back</p>
     </CardWrapper>
   )

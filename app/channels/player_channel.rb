@@ -27,6 +27,14 @@ class PlayerChannel < ApplicationCable::Channel
     PlayerBroadcast.opponent_picked_up_pile(current_player)
   end
 
+  def flip_card(data)
+    index = data['card']
+    current_player.reload
+    FlipCard.new(current_player).flip(index)
+    PlayerBroadcast.new(current_player).player_flipped_card
+    PlayerBroadcast.opponent_flipped_card(current_player)
+  end
+
   def unsubscribed
   end
 

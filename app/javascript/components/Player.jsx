@@ -27,15 +27,20 @@ const LeaveButton = styled.button`
 `
 
 class Player extends Component {
-  renderFaceDownCards (hasSelectedHand, faceDownCards) {
+  renderFaceDownCards () {
+    const { hasSelectedHand, faceDownCards, faceUpCards } = this.props
+    const showFaceDownCards = !hasSelectedHand || faceUpCards.length === 0
+
     return (
       <Fragment>
-        { !hasSelectedHand && <FaceDownCards cards={faceDownCards} /> }
+        { showFaceDownCards && <FaceDownCards cards={faceDownCards} /> }
       </Fragment>
     )
   }
 
-  renderHandSelect (hasSelectedHand) {
+  renderHandSelect () {
+    const { hasSelectedHand } = this.props
+
     return (
       <Fragment>
         { !hasSelectedHand && <HandSelect/> }
@@ -43,39 +48,56 @@ class Player extends Component {
     )
   }
 
-  renderFaceUpCards (hasSelectedHand, faceUpCards, handHasCards) {
+  renderFaceUpCards () {
+    const { hasSelectedHand, faceUpCards, handHasCards } = this.props
+    const showFaceUpCards = hasSelectedHand && faceUpCards.length > 0
+
     return (
       <Fragment>
-        { hasSelectedHand && faceUpCards.length > 0 && <FaceUpCards canPlayCards={!handHasCards} cards={faceUpCards} /> }
+        { showFaceUpCards && <FaceUpCards canPlayCards={!handHasCards} cards={faceUpCards} /> }
       </Fragment>
     )
   }
 
-  renderHand (hasSelectedHand, handHasCards) {
+  renderHand () {
+    const { hasSelectedHand, handHasCards } = this.props
+    const showHand = hasSelectedHand && handHasCards
+
     return (
       <Fragment>
-        { hasSelectedHand && handHasCards && <Hand/> }
+        { showHand && <Hand/> }
+      </Fragment>
+    )
+  }
+
+  renderLeaveButton () {
+    const { leaveGame } = api
+
+    return (
+      <Fragment>
+        <LeaveButton onClick={leaveGame}>Leave</LeaveButton>
       </Fragment>
     )
   }
 
   render () {
     const { hasSelectedHand, faceDownCards, faceUpCards, hand } = this.props
-    const handHasCards = hand.length > 0
-    const { leaveGame } = api
 
     return (
       <Fragment>
-        { this.renderFaceDownCards(hasSelectedHand, faceDownCards) }
-        { this.renderFaceUpCards(hasSelectedHand, faceUpCards, handHasCards) }
-        { this.renderHandSelect(hasSelectedHand) }
-        { this.renderHand(hasSelectedHand, handHasCards) }
-        <LeaveButton onClick={leaveGame}>Leave</LeaveButton>
+        { this.renderFaceDownCards() }
+        { this.renderFaceUpCards() }
+        { this.renderHandSelect() }
+        { this.renderHand() }
+        { this.renderLeaveButton() }
       </Fragment>
     )
   }
 }
 
-const mapStateToProps = ({ player }) => ({ ...player })
+const mapStateToProps = ({ player }) => ({
+  ...player,
+  handHasCards: player.hand.length > 0
+})
 
 export default connect(mapStateToProps)(Player)

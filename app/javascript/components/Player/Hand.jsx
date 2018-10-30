@@ -104,6 +104,10 @@ class Hand extends Component {
   }
 }
 
-const mapStateToProps = ({ player, game }) => ({ cards: player.hand, availablePlays: player.availablePlays, isTurn: game.playerTurnId === player.id })
+const mapStateToProps = ({ player, game }) => ({
+  cards: player.hand,
+  availablePlays: player.availablePlays,
+  isTurn: game.playerTurnId === player.id
+})
 
 export default connect(mapStateToProps)(Hand)

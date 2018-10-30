@@ -27,6 +27,12 @@ class PlayerBroadcast
     end
   end
 
+  def self.opponent_flipped_card(opponent)
+    opponent.opponents.each do |player|
+      new(player).opponent_flipped_card(opponent)
+    end
+  end
+
   def receive_initial_state
     broadcast_action(
       Serializers::Actions::ReceiveInitialState.new(player).to_h)
@@ -55,6 +61,16 @@ class PlayerBroadcast
   def opponent_picked_up_pile(opponent)
     broadcast_action(
       Serializers::Actions::OpponentPickedUpPile.new(player, opponent).to_h)
+  end
+
+  def player_flipped_card
+    broadcast_action(
+      Serializers::Actions::PlayerFlippedCard.new(player).to_h)
+  end
+
+  def opponent_flipped_card(opponent)
+    broadcast_action(
+      Serializers::Actions::OpponentFlippedCard.new(opponent).to_h)
   end
 
   private

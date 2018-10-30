@@ -9,6 +9,8 @@ export const PLAYER_MADE_PLAY = 'PLAYER_MADE_PLAY'
 export const OPPONENT_MADE_PLAY = 'OPPONENT_MADE_PLAY'
 export const PLAYER_PICKED_UP_PILE = 'PLAYER_PICKED_UP_PILE'
 export const OPPONENT_PICKED_UP_PILE = 'OPPONENT_PICKED_UP_PILE'
+export const PLAYER_FLIPPED_CARD = 'PLAYER_FLIPPED_CARD'
+export const OPPONENT_FLIPPED_CARD = 'OPPONENT_FLIPPED_CARD'
 
 export function authenticate (navigateToRoom) {
   return (dispatch) => {

@@ -23,6 +23,11 @@ const playerChannel = {
 
   pickUpPile () {
     App.player.perform('pick_up_pile')
+  },
+
+  flipCard (card) {
+    App.player.perform('flip_card', {
+      card: card })
   }
 }
 
