@@ -5,13 +5,16 @@ import FaceUpCards from './OpponentTop/FaceUpCards'
 import FaceDownCards from './OpponentTop/FaceDownCards'
 
 function OpponentTop ({ hasSelectedHand, faceUpCards, faceDownCards, hand }) {
+  const showFaceDownCards = !hasSelectedHand || !faceUpCards.length
+
   return (
     <div>
       { !hasSelectedHand && <HandSelect faceUpCards={faceUpCards}
                                         hand={hand} /> }
-      { !hasSelectedHand && <FaceDownCards cards={faceDownCards} /> }
       { hasSelectedHand && <Hand number={hand.number} /> }
-      { hasSelectedHand && <FaceUpCards cards={faceUpCards} /> }
+      { showFaceDownCards && <FaceDownCards cards={faceDownCards} /> }
+      { hasSelectedHand && <FaceUpCards cards={faceUpCards}
+                                        faceDownCardsCount={faceDownCards.number} /> }
     </div>
   )
 }

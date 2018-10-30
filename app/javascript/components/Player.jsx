@@ -29,7 +29,7 @@ const LeaveButton = styled.button`
 class Player extends Component {
   renderFaceDownCards () {
     const { hasSelectedHand, faceDownCards, faceUpCards } = this.props
-    const showFaceDownCards = !hasSelectedHand || faceUpCards.length === 0
+    const showFaceDownCards = !hasSelectedHand || !faceUpCards.length
 
     return (
       <Fragment>
