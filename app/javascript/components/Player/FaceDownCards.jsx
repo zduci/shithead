@@ -72,7 +72,7 @@ class FaceDownCards extends Component {
     const { cards, hand } = this.props
     const { number } = cards
     const { selectedCard } = this.state
-    const showFlipCardButton = !hand.length && cards.length
+    const showFlipCardButton = !hand.length && cards.number
 
     return (
       <Wrapper>
