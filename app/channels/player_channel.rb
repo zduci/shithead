@@ -16,6 +16,8 @@ class PlayerChannel < ApplicationCable::Channel
     card_ids = data['cards']
     current_player.reload
     MakePlay.new(current_player).play(card_ids)
+    current_player.reload
+    CheckForWinner.new(current_player.game).check
     PlayerBroadcast.new(current_player).player_made_play
     PlayerBroadcast.opponent_made_play(current_player)
   end

@@ -6,7 +6,8 @@ module Serializers
 
     def to_h
       { status: game.status,
-        playerTurnId: game.player_turn_id }
+        playerTurnId: game.player_turn_id,
+        winnerId: game.winner_id }
     end
 
     private
