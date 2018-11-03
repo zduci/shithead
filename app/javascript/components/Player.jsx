@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
 import api from '../utils/api'
 import HandSelect from './Player/HandSelect'
 import Hand from './Player/Hand'
@@ -95,9 +94,4 @@ class Player extends Component {
   }
 }
 
-const mapStateToProps = ({ player }) => ({
-  ...player,
-  handHasCards: player.hand.length > 0
-})
-
-export default connect(mapStateToProps)(Player)
+export default Player

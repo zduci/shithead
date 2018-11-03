@@ -13,7 +13,7 @@ const GameWrapper = styled.div`
 
 class Game extends Component {
   render () {
-    const { player, opponents, deck, pile } = this.props
+    const { player, opponents, deck, pile, handHasCards } = this.props
     const opponentTop = opponents[0]
 
     return (
@@ -21,12 +21,18 @@ class Game extends Component {
         <OpponentTop {...opponentTop} />
         <Deck {...deck} />
         <Pile {...pile} />
-        <Player/>
+        <Player {...player} handHasCards={handHasCards} />
       </GameWrapper>
     )
   }
 }
 
-const mapStateToProps = ({ player, opponents, deck, pile }) => ({ player, opponents, deck, pile })
+const mapStateToProps = ({ player, opponents, deck, pile }) => ({
+  player,
+  opponents,
+  deck,
+  pile,
+  handHasCards: player.hand.length > 0
+})
 
 export default connect(mapStateToProps)(Game)
