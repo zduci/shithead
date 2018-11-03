@@ -1,8 +1,8 @@
 class Suit
-  HEARTS = 'hearts'.freeze
-  DIAMONDS = 'diamonds'.freeze
-  CLUBS = 'clubs'.freeze
-  SPADES = 'spades'.freeze
+  HEARTS = 'H'.freeze
+  DIAMONDS = 'D'.freeze
+  CLUBS = 'C'.freeze
+  SPADES = 'S'.freeze
 
   ALL = [HEARTS, DIAMONDS, CLUBS, SPADES].freeze
 end
