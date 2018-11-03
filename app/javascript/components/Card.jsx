@@ -1,25 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const CardWrapper = styled.div`
-  padding: 10px;
+const CardWrapper = styled.img`
   margin: 6px;
   cursor: pointer;
-  border: 3px solid;
-  color: grey;
+  border: 2px solid;
+  max-height: 120px;
   border-radius: 4px;
-  border-color: grey;
-  border-color: ${props => props.isSelected && 'green'};
+  border-color: white;
+  border-color: ${props => props.isSelected && '#3df349'};
+  background-color: white;
+  background-color: ${props => props.isSelected && '#3df349'};
 `
+
+function imagePath ({ id }) {
+  return `/assets/cards/${id}.svg`
+}
 
 export default function Card ({ card, onClick, isSelected }) {
   const { id, rank, suit } = card
+  const src = imagePath(card)
 
   return (
-    <CardWrapper isSelected={isSelected}
-                 onClick={onClick}>
-      <p>{rank}</p>
-      <p>{suit}</p>
-    </CardWrapper>
+    <CardWrapper className='card'
+                 src={src}
+                 isSelected={isSelected}
+                 onClick={onClick} />
   )
 }
