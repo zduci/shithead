@@ -19,11 +19,13 @@ class Room extends Component {
 
   render () {
     const { game } = this.props
+    const showLobby = game && game.status === 'joining'
+    const showGame = game && ['playing', 'ended'].includes(game.status)
 
     return (
       <Fragment>
-        { game && game.status === 'joining' && <Lobby/> }
-        { game && game.status === 'playing' && <Game/> }
+        { showLobby && <Lobby/> }
+        { showGame && <Game/> }
       </Fragment>
     )
   }

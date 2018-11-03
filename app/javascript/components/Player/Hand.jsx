@@ -74,7 +74,7 @@ class Hand extends Component {
   }
 
   render () {
-    const { cards, availablePlays, isTurn } = this.props
+    const { cards, availablePlays, isTurn, gameIsRunning } = this.props
     const { selectedCards } = this.state
     const possibleSelections = this.possibleSelections()
     const canPlaySomething = possibleSelections.length > 0 ||
@@ -82,16 +82,16 @@ class Hand extends Component {
 
     return (
       <Wrapper>
-        { cards.map(card => this.renderCard(card, isTurn, possibleSelections)) }
-        { isTurn === true && canPlaySomething && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
-        { isTurn === true && !canPlaySomething && <PickUpPileButton onClick={this.pickUpPile}>Pick up</PickUpPileButton> }
+        { cards.map(card => this.renderCard(card, possibleSelections, isTurn, gameIsRunning)) }
+        { gameIsRunning && isTurn && canPlaySomething && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
+        { gameIsRunning && isTurn && !canPlaySomething && <PickUpPileButton onClick={this.pickUpPile}>Pick up</PickUpPileButton> }
       </Wrapper>
     )
   }
 
-  renderCard (card, isTurn, possibleSelections) {
+  renderCard (card, possibleSelections, isTurn, gameIsRunning) {
     const isSelected = this.state.selectedCards.includes(card.id)
-    const canToggle = isTurn && (isSelected || possibleSelections.includes(card.id))
+    const canToggle = gameIsRunning && isTurn && (isSelected || possibleSelections.includes(card.id))
     const onClick = canToggle ? this.toggleSelectCard.bind(this, card.id, isSelected)
                               : undefined
 
@@ -107,7 +107,8 @@ class Hand extends Component {
 const mapStateToProps = ({ player, game }) => ({
   cards: player.hand,
   availablePlays: player.availablePlays,
-  isTurn: game.playerTurnId === player.id
+  isTurn: game.playerTurnId === player.id,
+  gameIsRunning: game.status === 'playing'
 })
 
 export default connect(mapStateToProps)(Hand)

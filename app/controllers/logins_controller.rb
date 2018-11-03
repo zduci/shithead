@@ -4,7 +4,7 @@ class LoginsController < ApplicationController
   def show
     player = Player.find_by(id: cookies.encrypted[:player_id])
 
-    if player && (player.game.ended? || player.game.abandoned?)
+    if player && player.game.abandoned?
       cookies.delete(:player_id)
       disconnect(player)
       render json: Serializers::Responses::State.new(nil).to_h
