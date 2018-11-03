@@ -82,10 +82,20 @@ class Hand extends Component {
 
     return (
       <Wrapper>
-        { cards.map(card => this.renderCard(card, possibleSelections, isTurn, gameIsRunning)) }
+        { this.renderCards(cards, possibleSelections, isTurn, gameIsRunning) }
         { gameIsRunning && isTurn && canPlaySomething && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
         { gameIsRunning && isTurn && !canPlaySomething && <PickUpPileButton onClick={this.pickUpPile}>Pick up</PickUpPileButton> }
       </Wrapper>
+    )
+  }
+
+  renderCards (cards, possibleSelections, isTurn, gameIsRunning) {
+    const isHandActive = gameIsRunning && isTurn
+
+    return (
+      <div className={`hand hhand-compact ${isHandActive && 'active-hand'}`} >
+        { cards.map(card => this.renderCard(card, possibleSelections, isTurn, gameIsRunning)) }
+      </div>
     )
   }
 

@@ -22,7 +22,9 @@ function Hand ({ number }) {
 
   return (
     <Wrapper>
-      { handCards.map(index => renderCardBack(index)) }
+      <div className='hand hhand-compact' >
+        { handCards.map(index => renderCardBack(index)) }
+      </div>
     </Wrapper>
   )
 }
