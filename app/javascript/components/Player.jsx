@@ -6,6 +6,13 @@ import Hand from './Player/Hand'
 import FaceUpCards from './Player/FaceUpCards'
 import FaceDownCards from './Player/FaceDownCards'
 
+const Footer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-content: center;
+`
+
 const LeaveButton = styled.button`
   display: inline-block;
   padding: 6px 12px;
@@ -23,6 +30,11 @@ const LeaveButton = styled.button`
   color: ${props => props.disabled ? 'green' : 'black'};
   border-color: ${props => props.disabled ? 'green' : 'black'};
   width: 70px;
+  visibility: ${props => props.hidden ? 'hidden' : 'visible'};
+`
+
+const Name = styled.p`
+  color: ${props => props.isTurn ? 'green' : 'black'};
 `
 
 class Player extends Component {
@@ -69,13 +81,16 @@ class Player extends Component {
     )
   }
 
-  renderLeaveButton () {
+  renderFooter () {
+    const { name } = this.props
     const { leaveGame } = api
 
     return (
-      <Fragment>
+      <Footer>
+        <LeaveButton hidden></LeaveButton>
+        <Name>{name}</Name>
         <LeaveButton onClick={leaveGame}>Leave</LeaveButton>
-      </Fragment>
+      </Footer>
     )
   }
 
@@ -88,7 +103,7 @@ class Player extends Component {
         { this.renderFaceUpCards() }
         { this.renderHandSelect() }
         { this.renderHand() }
-        { this.renderLeaveButton() }
+        { this.renderFooter() }
       </div>
     )
   }

@@ -17,8 +17,8 @@ const GameWrapper = styled.div`
 
 class Game extends Component {
   render () {
-    const { player, opponents, deck, pile, handHasCards } = this.props
-    const opponentTop = opponents[0]
+    const { player, opponents, deck, pile, handHasCards, playerTurnId } = this.props
+    const opponentTop = { ...opponents[0], isTurn: opponents[0].id === playerTurnId }
 
     return (
       <GameWrapper>
@@ -30,11 +30,12 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ player, opponents, deck, pile }) => ({
+const mapStateToProps = ({ player, opponents, deck, pile, game }) => ({
   player,
   opponents,
   deck,
   pile,
+  playerTurnId: game.playerTurnId,
   handHasCards: player.hand.length > 0
 })
 

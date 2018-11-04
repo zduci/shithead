@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
+  min-height: 120px;
 `
 
 const TopCards = styled.div`
