@@ -30,6 +30,7 @@ const LeaveButton = styled.button`
   color: ${props => props.disabled ? 'green' : 'black'};
   border-color: ${props => props.disabled ? 'green' : 'black'};
   width: 70px;
+  height: 50px;
   visibility: ${props => props.hidden ? 'hidden' : 'visible'};
 `
 
@@ -87,9 +88,9 @@ class Player extends Component {
 
     return (
       <Footer>
-        <LeaveButton hidden></LeaveButton>
-        <Name>{name}</Name>
         <LeaveButton onClick={leaveGame}>Leave</LeaveButton>
+        <Name>{name}</Name>
+        <LeaveButton hidden></LeaveButton>
       </Footer>
     )
   }

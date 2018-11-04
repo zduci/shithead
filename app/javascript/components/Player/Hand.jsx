@@ -7,7 +7,8 @@ import playerChannel from '../../utils/playerChannel'
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
 `
 
 const MakePlayButton = styled.button`
@@ -27,9 +28,14 @@ const MakePlayButton = styled.button`
   color: ${props => props.disabled ? 'grey' : 'green'};
   border-color: ${props => props.disabled ? 'grey' : 'green'};
   width: 70px;
+  height: 50px;
 `
 
 const PickUpPileButton = styled(MakePlayButton)`
+`
+
+const HiddenButton = styled(MakePlayButton)`
+  visibility: hidden;
 `
 
 class Hand extends Component {
@@ -83,6 +89,7 @@ class Hand extends Component {
 
     return (
       <Wrapper>
+        { gameIsRunning && isTurn && <HiddenButton /> }
         { this.renderCards(cards, possibleSelections, isTurn, gameIsRunning) }
         { gameIsRunning && isTurn && canPlaySomething && <MakePlayButton disabled={!this.canMakePlay()} onClick={this.makePlay}>Play</MakePlayButton> }
         { gameIsRunning && isTurn && !canPlaySomething && <PickUpPileButton onClick={this.pickUpPile}>Pick up</PickUpPileButton> }
