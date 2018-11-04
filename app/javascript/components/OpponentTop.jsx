@@ -15,6 +15,7 @@ const Header = styled.div`
 
 function OpponentTop ({ name, hasSelectedHand, faceUpCards, faceDownCards, hand, isTurn }) {
   const showFaceDownCards = !hasSelectedHand || !faceUpCards.length
+  const showFaceUpCards = hasSelectedHand && faceUpCards.length > 0
 
   return (
     <div>
@@ -25,7 +26,7 @@ function OpponentTop ({ name, hasSelectedHand, faceUpCards, faceDownCards, hand,
                                         hand={hand} /> }
       { hasSelectedHand && <Hand number={hand.number} /> }
       { showFaceDownCards && <FaceDownCards cards={faceDownCards} /> }
-      { hasSelectedHand && <FaceUpCards cards={faceUpCards}
+      { showFaceUpCards && <FaceUpCards cards={faceUpCards}
                                         faceDownCardsCount={faceDownCards.number} /> }
     </div>
   )
