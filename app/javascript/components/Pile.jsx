@@ -5,7 +5,9 @@ import CardPile from './CardPile'
 
 const Wrapper = styled.div`
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
 `
 
 const TopCards = styled.div`

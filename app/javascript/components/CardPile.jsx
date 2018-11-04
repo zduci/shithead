@@ -8,6 +8,8 @@ const Container = styled.div`
   border-radius: 4px;
   position: relative;
   text-align: center;
+  display: block;
+  visibility: ${props => props.hidden ? 'hidden' : 'visible'};
 `
 
 const Image = styled.img`
@@ -24,9 +26,9 @@ const Text = styled.div`
   transform: translate(-50%, -50%);
 `
 
-export default function CardPile ({ size }) {
+export default function CardPile ({ size, hidden }) {
   return (
-    <Container>
+    <Container hidden={hidden} >
       <Image className='card'
              src={'/assets/cards/Blue_Back.svg'} />
       <Text>{size}</Text>
