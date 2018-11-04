@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Card from '../Card'
 import CardBack from '../CardBack'
@@ -6,6 +6,7 @@ import CardBack from '../CardBack'
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
 `
 
 function range (n) {

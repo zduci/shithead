@@ -9,6 +9,7 @@ const MAX_CARDS = 3
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
 `
 
 const SelectHandButton = styled.button`

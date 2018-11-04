@@ -7,6 +7,7 @@ import playerChannel from '../../utils/playerChannel'
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
 `
 
 const FlipCardButton = styled.button`

@@ -6,6 +6,7 @@ import CardBack from '../CardBack'
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
 `
 
 function renderCard (card) {

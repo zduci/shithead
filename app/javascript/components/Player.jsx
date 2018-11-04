@@ -83,13 +83,13 @@ class Player extends Component {
     const { hasSelectedHand, faceDownCards, faceUpCards, hand } = this.props
 
     return (
-      <Fragment>
+      <div>
         { this.renderFaceDownCards() }
         { this.renderFaceUpCards() }
         { this.renderHandSelect() }
         { this.renderHand() }
         { this.renderLeaveButton() }
-      </Fragment>
+      </div>
     )
   }
 }
