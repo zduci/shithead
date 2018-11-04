@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-  align-content: flex-start;
+  align-items: flex-start;
 `;
 
 function Middle ({ deck, pile }) {

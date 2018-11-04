@@ -8,7 +8,6 @@ const Wrapper = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
-  min-height: 120px;
 `
 
 const TopCards = styled.div`
@@ -18,7 +17,8 @@ const TopCards = styled.div`
 function renderCard (card) {
   return (
     <Card key={card.id}
-          card={card} />
+          card={card}
+          fixed />
   )
 }
 
@@ -26,7 +26,7 @@ function Pile ({ size, topCards }) {
   return (
     <Wrapper>
       <CardPile size={size} />
-      <TopCards className="hand vhand-compact" >
+      <TopCards className="hand hhand-compact" >
         { topCards.map(card => renderCard(card)) }
       </TopCards>
     </Wrapper>

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const CardWrapper = styled.img`
+  height: 120px;
   margin: 6px;
   cursor: pointer;
   border: 1px solid;
