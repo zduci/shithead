@@ -11,6 +11,11 @@ const GameWrapper = styled.div`
   flex-flow: column nowrap;
 `
 
+const Middle = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`
+
 class Game extends Component {
   render () {
     const { player, opponents, deck, pile, handHasCards } = this.props
@@ -19,8 +24,10 @@ class Game extends Component {
     return (
       <GameWrapper>
         <OpponentTop {...opponentTop} />
-        <Deck {...deck} />
-        <Pile {...pile} />
+        <Middle>
+          <Deck {...deck} />
+          <Pile {...pile} />
+        </Middle>
         <Player {...player} handHasCards={handHasCards} />
       </GameWrapper>
     )

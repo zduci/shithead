@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import CardPile from './CardPile'
 
 const DeckWrapper = styled.div`
   padding: 10px;
@@ -17,9 +18,7 @@ const DeckWrapper = styled.div`
 
 function Deck ({ number }) {
   return (
-    <DeckWrapper>
-      <p>Deck { number } cards</p>
-    </DeckWrapper>
+    <CardPile size={number} />
   )
 }
 

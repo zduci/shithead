@@ -1,24 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import Card from './Card'
+import CardPile from './CardPile'
 
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
 `
 
-const PileWrapper = styled.div`
-  padding: 10px;
+const TopCards = styled.div`
   margin: 6px;
-  cursor: pointer;
-  border: 3px solid;
-  color: grey;
-  border-radius: 4px;
-  border-color: grey;
-  max-width: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `
 
 function renderCard (card) {
@@ -31,10 +22,10 @@ function renderCard (card) {
 function Pile ({ size, topCards }) {
   return (
     <Wrapper>
-      <PileWrapper>
-        <p>Pile { size } cards</p>
-      </PileWrapper>
-      { topCards.map(card => renderCard(card)) }
+      <CardPile size={size} />
+      <TopCards className="hand vhand-compact" >
+        { topCards.map(card => renderCard(card)) }
+      </TopCards>
     </Wrapper>
   )
 }
