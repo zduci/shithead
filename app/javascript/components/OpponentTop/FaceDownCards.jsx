@@ -9,17 +9,23 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
+const CardWrapper = styled.div`
+  margin: 10px;
+`
+
 function range (n) {
   return [...Array(n).keys()]
 }
 
 function renderCardBack (id) {
   return (
-    <CardBack key={id} />
+    <CardWrapper>
+      <CardBack key={id} />
+    </CardWrapper>
   )
 }
 
-function FaceUpCards ({ cards }) {
+function FaceDownCards ({ cards }) {
   const { number } = cards
 
   return (
@@ -29,4 +35,4 @@ function FaceUpCards ({ cards }) {
   )
 }
 
-export default FaceUpCards
+export default FaceDownCards

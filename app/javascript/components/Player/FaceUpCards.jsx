@@ -11,6 +11,10 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
+const CardWrapper = styled.div`
+  margin: 10px;
+`
+
 const MakePlayButton = styled.button`
   display: inline-block;
   padding: 6px 12px;
@@ -77,10 +81,12 @@ class FaceUpCards extends Component {
     const isSelected = this.state.selectedCard === card.id
 
     return (
-      <Card key={card.id}
-            card={card}
-            isSelected={isSelected}
-            onClick={onClick} />
+      <CardWrapper>
+        <Card key={card.id}
+              card={card}
+              isSelected={isSelected}
+              onClick={onClick} />
+      </CardWrapper>
     )
   }
 
@@ -92,8 +98,10 @@ class FaceUpCards extends Component {
     const { selectedCard } = this.state
 
     return (
-      <CardBack key={index}
-                index={index} />
+      <CardWrapper>
+        <CardBack key={index}
+                  index={index} />
+      </CardWrapper>
     )
   }
 

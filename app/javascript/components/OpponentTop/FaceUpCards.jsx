@@ -9,10 +9,16 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
+const CardWrapper = styled.div`
+  margin: 10px;
+`
+
 function renderCard (card) {
   return (
-    <Card key={card.id}
-          card={card} />
+    <CardWrapper>
+      <Card key={card.id}
+            card={card} />
+    </CardWrapper>
   )
 }
 
@@ -23,7 +29,9 @@ function range (n) {
 
 function renderCardBack (index) {
   return (
-    <CardBack key={index} />
+    <CardWrapper>
+      <CardBack key={index} />
+    </CardWrapper>
   )
 }
 

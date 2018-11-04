@@ -10,6 +10,10 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
+const CardWrapper = styled.div`
+  margin: 10px;
+`
+
 const FlipCardButton = styled.button`
   display: inline-block;
   padding: 6px 12px;
@@ -55,11 +59,13 @@ class FaceDownCards extends Component {
                            : undefined
 
     return (
-      <CardBack key={index}
-      index={index}
-            isSelected={selectedCard === index}
-            onClick={onClick}
-      />
+      <CardWrapper>
+        <CardBack key={index}
+                  index={index}
+                        isSelected={selectedCard === index}
+                        onClick={onClick}
+        />
+      </CardWrapper>
     )
   }
 
