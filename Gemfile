@@ -34,7 +34,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'foreman'
 
-gem 'mysql2'
+gem 'pg', '~> 0.18.4'
 
 gem 'friendly_id', '~> 5.2.0'
 

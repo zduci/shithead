@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2018_10_25_145258) do
 
-  create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "games", force: :cascade do |t|
     t.integer "status", default: 0
     t.integer "room_id"
     t.text "deck"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 2018_10_25_145258) do
     t.integer "winner_id"
   end
 
-  create_table "players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "players", force: :cascade do |t|
     t.string "name"
     t.integer "game_id"
     t.boolean "is_ready", default: false
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 2018_10_25_145258) do
     t.boolean "has_selected_hand", default: false
   end
 
-  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.string "slug"
   end
