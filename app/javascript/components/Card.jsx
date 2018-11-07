@@ -16,7 +16,7 @@ const CardWrapper = styled.img`
 `
 
 function imagePath ({ id }) {
-  return `/assets/cards/${id}.svg`
+  return `/cards/${id}.svg`
 }
 
 export default function Card ({ card, onClick, isSelected, fixed }) {

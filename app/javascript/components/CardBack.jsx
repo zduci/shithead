@@ -17,7 +17,7 @@ const CardWrapper = styled.img`
 export default function CardBack ({ onClick, isSelected }) {
   return (
     <CardWrapper className='card'
-                 src={'/assets/cards/Blue_Back.svg'}
+                 src={'/cards/Blue_Back.svg'}
                  onClick={onClick}
                  isSelected={isSelected} />
   )

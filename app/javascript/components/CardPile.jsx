@@ -31,7 +31,7 @@ export default function CardPile ({ size, hidden }) {
   return (
     <Container hidden={hidden} >
       <Image className='card'
-             src={'/assets/cards/Blue_Back.svg'} />
+             src={'/cards/Blue_Back.svg'} />
       <Text>{size}</Text>
     </Container>
   )
