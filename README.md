@@ -6,4 +6,4 @@
 - Multiplayer browser game based on the [card game](https://en.wikipedia.org/wiki/Shithead_(card_game))
 - Built in Ruby/JavaScript using Rails/Action Cable/React/Redux
 
-Uses the [Vectorized Playing Cards 1.3](http://code.google.com/p/vectorized-playing-cards/) designed by Chris Aguilar.
+Uses the [Vectorized Playing Cards 1.3](https://sourceforge.net/projects/vector-cards/) designed by Chris Aguilar.
