@@ -4,7 +4,7 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "actioncable": "^5.2.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-preset-react": "^6.24.1",
     "cardsJS": "^1.1.1",
     "prop-types": "^15.6.2",
